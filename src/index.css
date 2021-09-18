@@ -8,12 +8,9 @@
 }
 
 .home {
-    position: absolute;
-    top: 0;
-    left: 0;
     padding: 1em;
-    width: calc(100vw - 2em);
-    height: calc(100vh - 2em);
+    width: 100vw;
+    height: 100vh;
     background: linear-gradient(rgb(255, 238, 0), rgb(185, 0, 0));
     overflow: hidden;
 }
@@ -23,25 +20,34 @@
 }
 
 #join-room-btn {
-    font-size: 1.5em;
-    margin: auto;
-    margin-top: 5em;
-    width: 20%;
-    height: 5em;
-    border: 2px solid rgb(255, 255, 255);
-    border-radius: 0.5em;
-    background-color: transparent;
+    background: #b621fe;
+    border: none;
+    z-index: 1;
 }
 
-#join-room-btn::after {
+#join-room-btn:after {
+    position: absolute;
     content: "";
-    background-color: rgb(255, 255, 255);
-    width: 100%;
+    width: 0;
     height: 100%;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    background-color: #663dff;
+    border-radius: 5px;
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5), 7px 7px 20px 0px rgba(0, 0, 0, .1), 4px 4px 5px 0px rgba(0, 0, 0, .1);
+    transition: all 0.3s ease;
 }
 
-#join-room-btn::after:hover {
-    color: #000;
+#join-room-btn:hover {
+    color: #fff;
+}
+
+#join-room-btn:hover:after {
+    left: 0;
     width: 100%;
-    height: 100%;
+}
+
+#join-room-btn:active {
+    top: 2px;
 }
