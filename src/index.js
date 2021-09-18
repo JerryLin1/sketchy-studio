@@ -1,9 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import './index.css'
+
 import { BrowserRouter, Route, MemoryRouter, Switch } from "react-router-dom";
 import Client from "./client";
 import Paint from "./Components/Paint";
+
+import Home from "./Components/Home";
+import Game from "./Components/Game";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,6 +22,7 @@ class App extends React.Component {
     // this.paints = {
     //   //socket.id: Paint element
     // };
+
     this.client.socket.on("newClient", (socket) => {});
     console.log(this.client.socket.idgreg)
   }
@@ -42,7 +50,7 @@ class App extends React.Component {
 
 ReactDOM.render(
   <MemoryRouter>
-    <Route render={(props) => <App match={props} />} />
+    <Route render={(props) => <Home match={props} />} />
   </MemoryRouter>,
   document.getElementById("root")
 );
