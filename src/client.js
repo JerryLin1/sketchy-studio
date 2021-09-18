@@ -9,8 +9,29 @@ export default class Client extends React.Component {
 
     // Redirect URL when client joins/creates room
     this.socket.on("redirect", (id) => {
+      this.roomId = id;
       this.pushURL(id);
     });
+
+    this.socket.on("startDrawingPhase", () => {
+      this.redirectURL(this.roomId +"/drawing");
+
+    })
+
+    this.socket.on("startDescribingPhase", () => {
+      this.redirectURL(this.roomId +"/describing");
+
+    })
+
+    this.socket.on("startRoundResultsPhase", () => {
+      this.redirectURL(this.roomId +"/round_results");
+
+    })
+
+    this.socket.on("startGameResultsPhase", () => {
+      this.redirectURL(this.roomId +"/game_results");
+
+    })
 
     this.state = {
       clientsInRoom: {

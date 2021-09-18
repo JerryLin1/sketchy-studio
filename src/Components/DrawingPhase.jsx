@@ -3,12 +3,15 @@ import Client from "../client";
 
 import Paint from "./Paint";
 
-export default class DrawingPromptsPhase extends React.Component {
+export default class DrawingPhase extends React.Component {
   constructor(props) {
     super(props);
-    this.client = new Client({
-      match: props.match,
-    });
+    this.client = props.client;
+  }
+
+  sendDrawing = () => {
+    // TODO: send lines
+
   }
 
   render() {
@@ -16,6 +19,7 @@ export default class DrawingPromptsPhase extends React.Component {
       <div className="game">
         <Paint
           props={{
+            forDisplay: false,
             id: this.client.socket.id,
             client: this.client,
           }}

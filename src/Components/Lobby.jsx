@@ -62,7 +62,12 @@ export default class Lobby extends React.Component {
       <div className="lobby">
         <Row>
           <center>
-            <Button variant="outline-light">Start game</Button>
+            <Button variant="outline-light"
+            onClick = {() => {
+              this.socket.emit("startGame");
+            }}>
+              Start game
+            </Button>
           </center>
           <div>{this.roomURL}</div>
         </Row>
