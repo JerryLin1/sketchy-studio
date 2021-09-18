@@ -38,10 +38,6 @@ io.on("connection", (socket) => {
     console.log(`${socket.id} has disconnected.`);
   });
 
-  socket.on("draw", (paintedLines) => {
-    io.emit("draw", paintedLines)
-  });
-
   socket.on("createRoom", () => {
     let roomId = randomId(8);
     socket.emit("redirect", roomId + "/lobby");
@@ -57,6 +53,34 @@ io.on("connection", (socket) => {
     io.to(info.roomId).emit("updateClientList", rooms[info.roomId].clients);
     console.log(rooms[info.roomId].clients);
   })
+
+<<<<<<< HEAD
+  
+=======
+  socket.on("startGame", ()=> {
+    if (rooms[roomId].clients[socket.id].isHost && rooms[roomId].gameState === gameState.LOBBY) {
+      rooms[roomId].gameState = gameState.DRAWING;
+      setTimeout(() => {
+        startDescribingPhase();
+      }, 90000);
+    }
+  })
+
+  socket.on("draw", (paintedLines) => {
+    if (rooms[roomId].gameState === gameState.DRAWING) {
+      rooms[socket.roomId].originalDrawings[socket.id] = paintedLines;
+    }
+    else if (rooms[roomId].gameState === gameState.DESCRIBE) {
+      // rooms[socket.roomId].originalDrawings[socket.id] = paintedLines;
+    }
+    io.emit("draw", paintedLines)
+  });
+
+  function startDescribingPhase() {
+
+  }
+
+>>>>>>> 3b4d14c7eccb59da7ea87f2eac01a8097f279856
 });
 
 // Make new room like rooms[roomId] = new Room();
@@ -66,13 +90,17 @@ function Room() {
   this.gameState = gameState.LOBBY;
   this.disconnected = 0;
   
-  // TODO: more stuff here
+  this.originalDrawings = {
+    // TODO: socket.id: paintedLines. Emitted by client when time runs out
+  }
+
+  // more stuff here if need be
 }
 // Add new client like rooms[roomId].clients[socket.id] = new Client()
 function Client(nickname, roomId) {
   this.nickname = nickname;
   this.disconnected = false;
-  this.isHost = (numberOfClientsInRoom(roomId) === 1);
+  this.isHost = (numberOfClientsInRoom(roomId) === 0);
   // TODO: Add avatar property
 
   // Paint is an array of the lines drawn by the client, which can be emitted and recreated on client side

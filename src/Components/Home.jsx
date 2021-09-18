@@ -8,6 +8,10 @@ export default class Home extends React.Component {
     this.client = props.client;
   }
 
+  setNick = (nickname) => {
+    localStorage.setItem("nickname", nickname);
+  }
+
   render() {
     return (
       <div className="home">
@@ -29,13 +33,13 @@ export default class Home extends React.Component {
           <Row id="customization-row">
             <Col xs="auto">
               <Form.Control
-                placeholder={"Nickname..."}
+                placeholder={localStorage.getItem("nickname")}
                 id="input-nick"
                 autoComplete="off"
                 maxLength="12"
-                onSubmit={() => {
-                  let input = document.getElementById("input-nick");
-                  this.setNick(input.val());
+                onChange={() => {
+                  let input = document.getElementById('input-nick');
+                  this.setNick(input.value);
                 }}
               />
             </Col>

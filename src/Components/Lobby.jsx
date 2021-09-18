@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Button } from "react-bootstrap";
-import ConditionalWrapper from "./ConditionalWrapper.jsx";
+import ConditionalWrapper from "./ConditionalWrapper.jsx"
+import "./Lobby.css";
 
 import logo from "../Assets/Screen_Shot_2021-09-18_at_12.22.10_PM.png";
 

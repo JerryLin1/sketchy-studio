@@ -34,7 +34,8 @@ export default class Client extends React.Component {
   joinRoom = (roomId) => {
     // TODO: Add avatar and default nickname
 
-    let nickname = "test";//localStorage.getItem("nickname");
+    let nickname = localStorage.getItem("nickname");
+    console.log(nickname);
     // let avatar = JSON.parse(localStorage.getItem("avatar"));
     // let defaultNickname = localStorage.getItem("defaultNickname")
     this.roomId = roomId;

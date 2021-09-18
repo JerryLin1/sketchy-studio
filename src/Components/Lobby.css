@@ -1,0 +1,8 @@
+.lobby-list-item {
+    border-radius: 10px;
+    background-color: #6254D0;
+    margin: 1em 0 1em 0;
+    padding: 1em;
+    font-size: 1.25em;
+    border: solid #2823BC 2px !important;
+}
