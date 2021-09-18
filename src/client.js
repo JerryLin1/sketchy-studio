@@ -19,16 +19,12 @@ export default class Client extends React.Component {
     };
   }
 
-  bruh = () => {
-    console.log("asdfgd");
-  }
-
   pushURL = (id) => {
-    this.props.match.history.push(`/${id}`);
+    this.props.match.history.push("/" + id);
   }
 
   redirectURL = (id) => {
-    this.props.match.history.replace(`/${id}`);
+    this.props.match.history.replace("/" + id);
   }
 
   createRoom = () => {

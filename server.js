@@ -40,16 +40,17 @@ io.on("connection", (socket) => {
 
   socket.on("createRoom", () => {
     let roomId = randomId(8);
-    socket.emit("redirect", roomId) // TODO: Change to fix with routing
+    socket.emit("redirect", roomId + "/lobby");
     rooms[roomId] = new Room();
+
+
     console.log("room created " + roomId);
     console.dir(rooms, {depth: null});
-    console.log(rooms[roomId].clients);
-
   });
 
   socket.on("joinRoom", info => {
-    let roomId = info.roomId;
+    socket.join(info.roomId);
+    rooms[roomId].clients[socket.id] = new Client();
   })
 });
 
@@ -59,12 +60,16 @@ function Room() {
   this.chatHistory = [];
   this.speaker = "";
   this.gameState = gameState.LOBBY;
+  this.disconnected = 0;
   
   // TODO: more stuff here
 }
 // Add new client like rooms[roomId].clients[socket.id] = new Client()
 function Client(nickname) {
   this.nickname = nickname;
+  this.disconnected = false;
+  // TODO: Add avatar property
+
   // Paint is an array of the lines drawn by the client, which can be emitted and recreated on client side
   this.paint = [];
 }
