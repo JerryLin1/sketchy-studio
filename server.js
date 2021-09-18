@@ -72,7 +72,7 @@ function Room() {
 function Client(nickname, roomId) {
   this.nickname = nickname;
   this.disconnected = false;
-  this.isHost = (numberOfClientsInRoom(roomId) === 1);
+  this.isHost = (numberOfClientsInRoom(roomId) === 0);
   // TODO: Add avatar property
 
   // Paint is an array of the lines drawn by the client, which can be emitted and recreated on client side
