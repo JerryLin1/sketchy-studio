@@ -38,10 +38,6 @@ io.on("connection", (socket) => {
     console.log(`${socket.id} has disconnected.`);
   });
 
-  socket.on("draw", (paintedLines) => {
-    io.emit("draw", paintedLines)
-  });
-
   socket.on("createRoom", () => {
     let roomId = randomId(8);
     socket.emit("redirect", roomId + "/lobby");
@@ -57,6 +53,28 @@ io.on("connection", (socket) => {
     io.to(info.roomId).emit("updateClientList", rooms[info.roomId].clients);
     console.log(rooms[info.roomId].clients);
   })
+
+  socket.on("startGame", ()=> {
+    if (rooms[roomId].clients[socket.id].isHost && rooms[roomId].gameState === gameState.LOBBY) {
+      rooms[roomId].gameState = gameState.DRAWING;
+      setTimeout(() => {
+        startDescribingPhase();
+      }, 90000);
+    }
+  })
+
+  socket.on("draw", (paintedLines) => {
+    if (rooms[roomId].gameState === gameState.DRAWING) {
+      rooms[socket.roomId].originalDrawings[socket.id] = paintedLines;
+    }
+    else if (rooms[roomId])
+    io.emit("draw", paintedLines)
+  });
+
+  function startDescribingPhase() {
+
+  }
+
 });
 
 // Make new room like rooms[roomId] = new Room();
@@ -66,7 +84,11 @@ function Room() {
   this.gameState = gameState.LOBBY;
   this.disconnected = 0;
   
-  // TODO: more stuff here
+  this.originalDrawings = {
+    // TODO: socket.id: paintedLines. Emitted by client when time runs out
+  }
+  
+  // more stuff here if need be
 }
 // Add new client like rooms[roomId].clients[socket.id] = new Client()
 function Client(nickname, roomId) {
