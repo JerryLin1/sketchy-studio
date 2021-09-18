@@ -9,13 +9,6 @@ import Paint from "./Components/Paint";
 
 import Home from "./Components/Home";
 import Lobby from "./Components/Lobby";
-<<<<<<< HEAD
-import RoundResults from "./Components/RoundResults";
-import GameResults from "./Components/GameResults";
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import DrawingPromptsPhase from "./Components/DrawingPromptsPhase";
-=======
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DrawingPhase from "./Components/DrawingPhase";
@@ -25,7 +18,6 @@ import RoundResultsPhase from "./Components/RoundResultsPhase";
 
 import GameResultsPhase from "./Components/GameResultsPhase";
 
->>>>>>> 3a7da02291c8aeae019257e91708d15ac94fbbbd
 
 class App extends React.Component {
   constructor(props) {
