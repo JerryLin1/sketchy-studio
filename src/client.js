@@ -1,5 +1,6 @@
 import React from "react";
 import io from "socket.io-client";
+import $ from "jquery";
 
 export default class Client extends React.Component {
   constructor(props) {
@@ -31,6 +32,13 @@ export default class Client extends React.Component {
     this.socket.on("startGameResultsPhase", () => {
       this.redirectURL(this.roomId +"/game_results");
 
+    })
+    this.socket.on("draw", (src)=> {
+      let t = $.parseHTML(`<img src=${src}>`)[0]
+      // document.body.appendChild(t)
+
+      // React would be
+      // this.setState({image: <img src={src}/>})    
     })
 
     this.state = {

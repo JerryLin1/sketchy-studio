@@ -63,7 +63,6 @@ io.on("connection", (socket) => {
   })
 
   socket.on("draw", (paintedLines) => {
-    console.log(paintedLines)
     if (rooms[socket.room].gameState === gameState.DRAWING) {
       rooms[socket.room].originalDrawings[socket.id] = paintedLines;
     }
