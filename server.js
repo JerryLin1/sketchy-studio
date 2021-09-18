@@ -67,7 +67,9 @@ io.on("connection", (socket) => {
     if (rooms[roomId].gameState === gameState.DRAWING) {
       rooms[socket.roomId].originalDrawings[socket.id] = paintedLines;
     }
-    else if (rooms[roomId])
+    else if (rooms[roomId].gameState === gameState.DESCRIBE) {
+      // rooms[socket.roomId].originalDrawings[socket.id] = paintedLines;
+    }
     io.emit("draw", paintedLines)
   });
 
@@ -87,7 +89,7 @@ function Room() {
   this.originalDrawings = {
     // TODO: socket.id: paintedLines. Emitted by client when time runs out
   }
-  
+
   // more stuff here if need be
 }
 // Add new client like rooms[roomId].clients[socket.id] = new Client()
