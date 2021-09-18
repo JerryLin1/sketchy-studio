@@ -2,15 +2,28 @@ import React from "react";
 import Sketch from "react-p5";
 
 let Paint = (props) => {
+  var linesToReceive = [];
+
+  // linesToDraw every frame. This array is iterated over, drawn, and cleared every frame
   var linesToDraw = [];
   const setup = (p5, canvasParentRef) => {
     // use parent to render the canvas in this ref
     // (without that p5 will render the canvas outside of your component)
-    p5.createCanvas(600, 400);
+    let canvas = p5.createCanvas(600, 400);
+    canvas.parent(canvasParentRef);
+
     p5.background(250);
     p5.strokeWeight(5);
+
+    setInterval(() => {
+      if (linesToReceive.length > 0) {
+        linesToDraw.push(linesToReceive[0]);
+        linesToReceive.splice(0, 1);
+      }
+    }, 5);
     props.props.client.socket.on("draw", (line) => {
-      console.log("FOWEJFI")
+      // linesToReceive will delay the drawing. Would be cool during voting phase to see drawing progress? 
+      // linesToReceive.push(line);
       linesToDraw.push(line);
     });
   };
@@ -21,7 +34,9 @@ let Paint = (props) => {
       drawLine(line);
       props.props.client.socket.emit("draw", line);
     }
-    for (let line of linesToDraw) {
+
+    for (let i = 0; i < linesToDraw.length; i++) {
+      let line = linesToDraw[i];
       drawLine(line);
     }
 

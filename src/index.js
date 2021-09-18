@@ -11,6 +11,12 @@ class App extends React.Component {
     this.client = new Client({
       match: props.match,
     });
+    
+    // this.paints = {
+    //   //socket.id: Paint element
+    // };
+    this.client.socket.on("newClient", (socket) => {});
+    console.log(this.client.socket.idgreg)
   }
 
   render() {
@@ -21,6 +27,7 @@ class App extends React.Component {
             Hello World
             <Paint
               props={{
+                id: this.client.socket.id,
                 client: this.client,
               }}
             />

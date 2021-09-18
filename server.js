@@ -15,6 +15,7 @@ server.listen(port, () => {
 const rooms = {};
 
 io.on("connection", (socket) => {
+  // socket.emit("newPaint", socket);
   console.log(`${socket.id} has connected.`);
   socket.on("disconnect", () => {
     console.log(`${socket.id} has disconnected.`);
@@ -29,3 +30,12 @@ function Room() {
   this.clients = {};
   // TODO: more stuff here
 }
+// Add new client like rooms[roomId].clients[socket.id] = new Client()
+function Client(nickname) {
+  this.nickname = nickname;
+  // Paint is an array of the lines drawn by the client, which can be emitted and recreated on client side
+  this.paint = [];
+}
+// function addClient() {
+
+// }
