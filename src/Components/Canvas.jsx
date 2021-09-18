@@ -81,6 +81,7 @@ function Canvas(props) {
     let pngString = canvasRef.current.toDataURL();
     client.socket.emit("draw", pngString);
     client.socket.emit("finishedDrawing");
+    clear();
   };
 
   return (
