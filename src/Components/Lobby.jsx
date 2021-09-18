@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Button } from "react-bootstrap";
 import ConditionalWrapper from "./ConditionalWrapper.jsx"
+import "./Lobby.css";
 
 
 export default class Lobby extends React.Component {
