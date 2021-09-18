@@ -69,12 +69,18 @@
 }
 
 #player-list {
+    padding: 1em;
     color: #fff;
     margin: 1em auto;
     min-height: 1em;
     height: fit-content;
-    width: 75%;
+    width: 50%; 
+}
+
+.player-card {
     border: 1px solid #fff;
+    padding: 0.25em;
+    margin: 0.5em 0;
 }
 
 .game {
