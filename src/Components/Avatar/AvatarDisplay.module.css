@@ -1,0 +1,13 @@
+.avatarContainer {
+  margin: auto;
+  position: relative;
+  box-sizing: border-box;
+  image-rendering: crisp-edges;
+}
+.avatarComponent {
+  width: 100%;
+  height: 100%;
+  /* background-size = number of sprites per row/column*100% */
+  background-size: 800%;
+  position: absolute;
+}

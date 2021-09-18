@@ -4,6 +4,7 @@ import ConditionalWrapper from "./ConditionalWrapper.jsx"
 import "./Lobby.css";
 
 import logo from "../Assets/Screen_Shot_2021-09-18_at_12.22.10_PM.png";
+import AvatarDisplay from "./Avatar/AvatarDisplay.jsx";
 
 export default class Lobby extends React.Component {
   constructor(props) {
@@ -51,6 +52,24 @@ export default class Lobby extends React.Component {
               {client.isHost && (
                 <span style={{ color: "#b59700", float: "right" }}> HOST</span>
               )}
+              <div
+                style={{
+                  borderRadius: "0 0 10px 10px",
+                  boxSizing: "border-box",
+                  backgroundColor: "#52aeff",
+                }}
+              >
+                <AvatarDisplay
+                  avatar={{
+                    bodyNum: client.avatar.bodyNum,
+                    eyesNum: client.avatar.eyesNum,
+                    hairNum: client.avatar.hairNum,
+                    mouthNum: client.avatar.mouthNum,
+                    shirtNum: client.avatar.shirtNum,
+                  }}
+                  size={0.5}
+                />
+              </div>
             </div>
           );
         }),
@@ -61,13 +80,13 @@ export default class Lobby extends React.Component {
   render() {
     return (
       <div className="lobby">
-        <img src={logo} style={{transform: "scale(0.75)"}}/>
+        <img src={logo} style={{ transform: "scale(0.75)" }} />
         <Row>
           <center>
             <Button variant="outline-light"
-            onClick = {() => {
-              this.socket.emit("startGame");
-            }}>
+              onClick={() => {
+                this.socket.emit("startGame");
+              }}>
               Start game
             </Button>
           </center>
