@@ -57,7 +57,6 @@ io.on("connection", (socket) => {
 // Make new room like rooms[roomId] = new Room();
 function Room() {
   this.clients = {};
-  this.chatHistory = [];
   this.speaker = "";
   this.gameState = gameState.LOBBY;
   this.disconnected = 0;
