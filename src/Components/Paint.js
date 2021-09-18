@@ -1,13 +1,16 @@
 import React from "react";
+// import { Row, Col, Button } from "react-bootstrap";
 import Sketch from "react-p5";
 
 let Paint = (props) => {
   // sw = strokeweight = pen width
   let swSliderWrapper = React.useRef(null);
   let colorPickerWrapper = React.useRef(null);
+  let submitButtonWrapper = React.useRef(null);
 
   var swSlider;
   var colorPicker;
+  var submitButton;
 
   var linesToReceive = [];
   // linesToDraw every frame. This array is iterated over, drawn, and cleared every frame
@@ -30,11 +33,19 @@ let Paint = (props) => {
     let canvas = p5.createCanvas(600, 400);
     canvas.parent(canvasParentRef);
 
-    swSlider = p5.createSlider(2, 14, 4, 4);
-    swSlider.parent(swSliderWrapper.current);
+    if (!props.props.forDisplay) {
+      swSlider = p5.createSlider(2, 14, 4, 4);
+      swSlider.parent(swSliderWrapper.current);
 
-    colorPicker = p5.createColorPicker(0x000000);
-    colorPicker.parent(colorPickerWrapper.current);
+      colorPicker = p5.createColorPicker(0x000000);
+      colorPicker.parent(colorPickerWrapper.current);
+
+      submitButton = p5.createButton("Submit");
+      submitButton.mousePressed(() => {
+        props.props.client.socket.emit("draw", paintedLines);
+      });
+      submitButton.parent(submitButtonWrapper.current);
+    }
 
     p5.background(250);
     p5.strokeWeight(5);
@@ -46,88 +57,95 @@ let Paint = (props) => {
       }
     }, 5);
 
-    props.props.client.socket.on("draw", (line) => {
+    props.props.client.socket.on("draw", (incomingPaintedLines) => {
       // linesToReceive will delay the drawing. Would be cool during voting phase to see drawing progress?
       // linesToReceive.push(line);
-      linesToDraw.push(line);
+      p5.clear();
+      paintedLines = [];
+      for (let line of incomingPaintedLines) {
+        linesToReceive.push(line);
+      }
     });
   };
   const draw = (p5) => {
     // Local client is drawing
     // Left mouse button draws
-    if (p5.mouseIsPressed) {
-      if (undoLevel < 0) {
-        paintedLinesHistory = paintedLinesHistory.slice(0, undoLevel);
-      }
-      undoLevel = 0;
+    if (!props.props.forDisplay) {
+      if (p5.mouseIsPressed) {
+        if (undoLevel < 0) {
+          paintedLinesHistory = paintedLinesHistory.slice(0, undoLevel);
+        }
+        undoLevel = 0;
 
-      if (p5.mouseButton === p5.LEFT) {
-        let line = new Line(
-          p5.pmouseX,
-          p5.pmouseY,
-          p5.mouseX,
-          p5.mouseY,
-          swSlider.value(),
-          colorPicker.value()
-        );
-        drawLine(line);
-        props.props.client.socket.emit("draw", line);
+        if (p5.mouseButton === p5.LEFT) {
+          let line = new Line(
+            p5.pmouseX,
+            p5.pmouseY,
+            p5.mouseX,
+            p5.mouseY,
+            swSlider.value(),
+            colorPicker.value()
+          );
+          drawLine(line);
+          // props.props.client.socket.emit("draw", line);
+        }
+        // Right mouse button erases
+        else if (p5.mouseButton === p5.RIGHT) {
+          let line = new Line(
+            p5.pmouseX,
+            p5.pmouseY,
+            p5.mouseX,
+            p5.mouseY,
+            swSlider.value(),
+            250
+          );
+          drawLine(line);
+          // props.props.client.socket.emit("draw", line);
+        }
       }
-      // Right mouse button erases
-      else if (p5.mouseButton === p5.RIGHT) {
-        let line = new Line(
-          p5.pmouseX,
-          p5.pmouseY,
-          p5.mouseX,
-          p5.mouseY,
-          swSlider.value(),
-          250
-        );
-        drawLine(line);
-        props.props.client.socket.emit("draw", line);
-      }
-    }
 
-    // ctrl + z = undo
-    if (
-      canUndo === true &&
-      p5.keyIsPressed === true &&
-      p5.keyIsDown(17) &&
-      p5.keyIsDown(90)
-    ) {
+      // ctrl + z = undo
       if (
-        paintedLinesHistory.length - 1 + undoLevel > 0 &&
-        paintedLinesHistory.length - 1 + undoLevel < paintedLinesHistory.length
+        canUndo === true &&
+        p5.keyIsPressed === true &&
+        p5.keyIsDown(17) &&
+        p5.keyIsDown(90)
       ) {
-        undoLevel--;
-        undoHistoryLevel();
+        if (
+          paintedLinesHistory.length - 1 + undoLevel > 0 &&
+          paintedLinesHistory.length - 1 + undoLevel <
+            paintedLinesHistory.length
+        ) {
+          undoLevel--;
+          undoHistoryLevel();
+        }
+
+        canUndo = false;
+      }
+      if (canUndo === false && !p5.keyIsDown(90)) {
+        canUndo = true;
       }
 
-      canUndo = false;
-    }
-    if (canUndo === false && !p5.keyIsDown(90)) {
-      canUndo = true;
-    }
-
-    // ctrl + y = redo
-    if (
-      canRedo === true &&
-      p5.keyIsPressed === true &&
-      p5.keyIsDown(17) &&
-      p5.keyIsDown(89)
-    ) {
+      // ctrl + y = redo
       if (
-        paintedLinesHistory.length - 1 + undoLevel >= 0 &&
-        paintedLinesHistory.length - 1 + undoLevel <
-          paintedLinesHistory.length - 1
+        canRedo === true &&
+        p5.keyIsPressed === true &&
+        p5.keyIsDown(17) &&
+        p5.keyIsDown(89)
       ) {
-        undoLevel++;
-        undoHistoryLevel();
+        if (
+          paintedLinesHistory.length - 1 + undoLevel >= 0 &&
+          paintedLinesHistory.length - 1 + undoLevel <
+            paintedLinesHistory.length - 1
+        ) {
+          undoLevel++;
+          undoHistoryLevel();
+        }
+        canRedo = false;
       }
-      canRedo = false;
-    }
-    if (canRedo === false && !p5.keyIsDown(89)) {
-      canRedo = true;
+      if (canRedo === false && !p5.keyIsDown(89)) {
+        canRedo = true;
+      }
     }
     function undoHistoryLevel() {
       if (
@@ -172,6 +190,11 @@ let Paint = (props) => {
         style={{ display: "inline" }}
         id="colorPickerWrapper"
         ref={colorPickerWrapper}
+      />
+      <span
+        style={{ display: "inline" }}
+        id="submitButtonWrapper"
+        ref={submitButtonWrapper}
       />
     </div>
   );
