@@ -20,9 +20,12 @@ function Canvas(props) {
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
     const submitRef = useRef(null);
+    const swSliderRef = useRef(null);
+
 
     const colorBtns = [];
     const colorBtnsGrid = (
+
         <div
             style={{
                 display: "grid",
@@ -78,6 +81,7 @@ function Canvas(props) {
             switch (event.which) {
                 case 1:
                     context.strokeStyle = window.color;
+                    context.lineWidth = swSliderRef.current.value;
                     break;
                 case 3:
                     context.strokeStyle = "#FFFFFF";
@@ -91,7 +95,7 @@ function Canvas(props) {
         const context = canvas.getContext("2d");
         // context.scale(2, 2);
         context.lineCap = "round";
-        context.lineWidth = 5;
+        context.lineWidth = swSliderRef.current.value;
         contextRef.current = context;
 
         clear();
@@ -144,6 +148,8 @@ function Canvas(props) {
                 <Col id = "canvas-settings">
                     <div id = "colour-header">Colour Picker:</div>
                     {colorBtnsGrid}
+                    <input ref={swSliderRef} type="range" min="2" max="66" step="4" class="slider" defaultValue="6"/>
+
                     <Button id = "submit-btn" disabled = {!enabled} ref={submitRef}>Submit drawing</Button>
 
                 </Col>
