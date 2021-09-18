@@ -75,24 +75,38 @@ io.on("connection", (socket) => {
   socket.on("startGame", () => {
     if (rooms[socket.room].clients[socket.id].isHost && rooms[socket.room].gameState === gameState.LOBBY) {
       rooms[socket.room].gameState = gameState.DRAWING;
-      rooms[socket.room].rounds = [];
 
       io.to(socket.room).emit("startDrawingPhase");
-      setTimeout(() => {
-        // Assign a random describer to an original drawing by another artist
-        let originalDrawings = Object.entries(rooms[socket.room].originalDrawings);
-        for (const [artist, drawing] of originalDrawings) {
-          let clientIds = Object.keys(rooms[socket.room].clients);
-          let randomClient = clientIds[getRandomInt(0, clientIds.length)];
-          while (randomClient === artist) {
-            randomClient = clientIds[getRandomInt(0, clientIds.length)];
-          }
-
-          rooms[socket.room].rounds.push(new Round(drawing, artist, randomClient));
-        }
-
+      
+      rooms[socket.room].nextPhase = setTimeout(() => {
+        assignDescribers();
         startDescribingPhase();
       }, 90000);
+    }
+  })
+
+  socket.on("finishedDrawing", () => {
+    rooms[socket.room].finishedDrawing ++;
+    if (rooms[socket.room].finishedDrawing === numberOfClientsInRoom(socket.room)) {
+      clearTimeout(rooms[socket.room].nextPhase);
+      rooms[socket.room].finishedDrawing = 0;
+
+      if (rooms[socket.room].gameState === gameState.DRAWING) {
+        if (rooms[socket.room].currentRound === 0) {
+          assignDescribers();
+        }
+        startDescribingPhase();
+        
+      } else if (rooms[socket.room].gameState === gameState.DESCRIBE) {
+        startRoundResultPhase();
+      }
+    }
+  })
+
+  socket.on("nextRound", () => {
+    if (rooms[socket.room].currentRound < rooms[socket.room].rounds.length) {
+      startDescribingPhase();
+      clearTimeout(rooms[socket.room].nextPhase);
     }
   })
 
@@ -102,23 +116,19 @@ io.on("connection", (socket) => {
 
     let currentRound = rooms[socket.room].currentRound;
     let currentRoundInfo = rooms[socket.room].rounds[currentRound];
+    console.dir(currentRoundInfo, { depth: null });
 
-    socket.to(currentRoundInfo.describer).emit("startDescribingPhase");
-    socket.to(currentRoundInfo.describer).emit("describer", (currentRoundInfo.originalDrawing, currentRoundInfo.originalArtist));
+
+    io.to(currentRoundInfo.describer).emit("startDescribingPhase");
+    io.to(currentRoundInfo.describer).emit("describer", {drawing: currentRoundInfo.originalDrawing, artist: currentRoundInfo.originalArtist});
     rooms[socket.room].gameState = gameState.DESCRIBE;
-    setTimeout(() => { startRoundResultPhase() }, 120000);
+    rooms[socket.room].nextPhase = setTimeout(() => { startRoundResultPhase() }, 120000);
   }
 
   function startRoundResultPhase() {
     io.to(socket.room).emit("startRoundResultPhase");
     rooms[socket.room].gameState = gameState.ROUND_RESULTS;
-    setTimeout(() => {
-      rooms[socket.room].currentRound
-        < Object.keys(rooms[socket.room].rounds).length
-        ? startDescribingPhase() : startGameResultPhase()
-    }, 5000);
     rooms[socket.room].currentRound++;
-
   }
 
   function startGameResultPhase() {
@@ -127,6 +137,20 @@ io.on("connection", (socket) => {
 
     // TODO: handle exit
 
+  }
+
+  function assignDescribers() {
+    // Assign a random describer to an original drawing by another artist
+    let originalDrawings = Object.entries(rooms[socket.room].originalDrawings);
+    for (const [artist, drawing] of originalDrawings) {
+      let clientIds = Object.keys(rooms[socket.room].clients);
+      let randomClient = clientIds[getRandomInt(0, clientIds.length)];
+      while (randomClient === artist) {
+        randomClient = clientIds[getRandomInt(0, clientIds.length)];
+      }
+
+      rooms[socket.room].rounds.push(new Round(drawing, artist, randomClient));
+    }
   }
 
 });
@@ -138,6 +162,9 @@ function Room() {
   this.gameState = gameState.LOBBY;
   this.disconnected = 0;
   this.currentRound = 0;
+  this.finishedDrawing = 0;
+  this.nextPhase = undefined;
+  this.rounds = [];
 
   this.originalDrawings = {
     // TODO: socket.id: paintedLines. Emitted by client when time runs out
@@ -167,8 +194,8 @@ function Client(nickname, roomId, avatar) {
 
 
 function Round(originalDrawing, originalArtist, describer) {
-  this.originalDrawing = undefined;
-  this.originalArtist = undefined; //id
-  this.describer = undefined; //id
+  this.originalDrawing = originalDrawing;
+  this.originalArtist = originalArtist; //id
+  this.describer = describer; //id
   this.copies = {};
 }
