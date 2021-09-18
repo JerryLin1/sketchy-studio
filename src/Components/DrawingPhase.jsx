@@ -1,6 +1,6 @@
 import React from "react";
 import Client from "../client";
-import Canvas from "./Canvas";
+import Canvas from "../Components/Canvas"
 
 import Paint from "./Paint";
 
@@ -18,7 +18,12 @@ export default class DrawingPhase extends React.Component {
   render() {
     return (
       <div className="game">
-        <Canvas/>
+        <Canvas
+          props={{
+            isDescriber: true,
+            client: this.client,
+          }}
+        />
       </div>
     );
   }
