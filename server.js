@@ -9,8 +9,10 @@ const io = new Server(server);
 
 const port = process.env.PORT || 6567;
 server.listen(port, () => {
-    console.log(`Listening on port ${port}`)
+  console.log(`Listening on port ${port}`);
 });
+
+const rooms = {};
 
 io.on("connection", (socket) => {
   console.log(`${socket.id} has connected.`);
@@ -18,3 +20,9 @@ io.on("connection", (socket) => {
     console.log(`${socket.id} has disconnected.`);
   });
 });
+
+// Make new room like rooms[roomId] = new Room();
+function Room() {
+  this.clients = {};
+  // TODO: more stuff here
+}
