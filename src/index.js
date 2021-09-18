@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { BrowserRouter, Route, MemoryRouter, Switch } from "react-router-dom";
+import Client from "./client";
 
 class App extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class App extends React.Component {
         <Switch>
           {/* <Route path="/:roomId?" exact render={(props) => (<Home client={this.client} match={props.match} />)} />
           <Route path="/:roomId/lobby" exact render={(props) => (<Lobby client={this.client} match={props.match} />)} /> */}
+          
         </Switch>
       </div>
     );
@@ -26,6 +28,7 @@ class App extends React.Component {
 
 ReactDOM.render(
   <MemoryRouter>
+    Hello World
     <Route render={(props) => <App match={props} />} />
   </MemoryRouter>,
   document.getElementById("root")
