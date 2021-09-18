@@ -54,9 +54,6 @@ io.on("connection", (socket) => {
     console.log(rooms[info.roomId].clients);
   })
 
-<<<<<<< HEAD
-  
-=======
   socket.on("startGame", ()=> {
     if (rooms[roomId].clients[socket.id].isHost && rooms[roomId].gameState === gameState.LOBBY) {
       rooms[roomId].gameState = gameState.DRAWING;
@@ -80,7 +77,6 @@ io.on("connection", (socket) => {
 
   }
 
->>>>>>> 3b4d14c7eccb59da7ea87f2eac01a8097f279856
 });
 
 // Make new room like rooms[roomId] = new Room();
