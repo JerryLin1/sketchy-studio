@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Button, Form } from "react-bootstrap"
+import { Row, Col, Button, Form } from "react-bootstrap";
 import logo from "../Assets/Logo.png";
 
 import AvatarCustomizer from "./Avatar/AvatarCustomizer";
@@ -14,32 +14,39 @@ export default class Home extends React.Component {
 
   setNick = (nickname) => {
     localStorage.setItem("nickname", nickname);
-  }
+  };
 
   render() {
     return (
       <div className="home">
-        <img src={logo} style={{ transform: "scale(0.55)", display: "block", margin: "0 auto -5em auto" }} />
 
-        <Button
-        id = "start-button"
-        onClick={() => {
-   
-          window.location.pathname.substring(1) === ""
-            ? this.client.createRoom()
-            : this.client.redirectURL(
-                `${window.location.pathname.substring(1)}/lobby`
-              );
-        }}>
+        <img
+          src={logo}
+          style={{
+            transform: "scale(0.55)",
+            display: "block",
+            margin: "0 auto -5em auto",
+          }}
+        />
+
+        <button
+          id="join-room-btn"
+          onClick={() => {
+            window.location.pathname.substring(1) === ""
+              ? this.client.createRoom()
+              : this.client.redirectURL(
+                  `${window.location.pathname.substring(1)}/lobby`
+                );
+          }}
+        >
           {window.location.pathname.substring(1) === ""
-            ? "Create room" : "Join room"}
-        </Button>
+            ? "Create room"
+            : "Join room"}
+        </button>
 
-        <div id = "customization-header">
-          Choose your nickname and avatar!
-        </div>
+        <div id="customization-header">Choose your nickname and avatar!</div>
 
-        <Form id = "customization-form">
+        <Form id="customization-form">
           <Row id="customization-row">
             <Col xs="auto">
               <Form.Control
@@ -48,7 +55,7 @@ export default class Home extends React.Component {
                 autoComplete="off"
                 maxLength="12"
                 onChange={() => {
-                  let input = document.getElementById('input-nick');
+                  let input = document.getElementById("input-nick");
                   this.setNick(input.value);
                 }}
               />

@@ -24,7 +24,7 @@
 
     min-height: 100vh;
     width: 100%;
-    
+
     background-attachment: fixed;
     background-position: center center;
     background-repeat: no-repeat;
@@ -38,7 +38,7 @@
 
 #join-room-btn {
     position: relative;
-    margin-top: 5em;
+    margin-top: 2.5em;
     width: 15em;
     height: 2.5em;
     border-radius: 0.25em;
@@ -78,17 +78,16 @@
 /* Lobby */
 
 .lobby {
-    width: 100vw;
-    height: 100vh;
+    max-width: 100vw !important;
+    min-height: 100vh;
     background: linear-gradient(#D22999, #6253D0);
-    padding-top: 1em;
+    padding-top: 2em;
 }
 
 #player-list {
     padding: 1em;
     color: #fff;
-    margin: 1em auto;
-    min-height: 1em;
+    margin: 1em auto 0 auto;
     height: fit-content;
     width: 50%;
 }
@@ -159,7 +158,7 @@
 }
 
 #winner-prompt-invisible {
-    animation: prompt-anim 0.75s;
+    animation: fade-out 0.75s;
     display: none;
 }
 
@@ -168,10 +167,46 @@
 }
 
 #winner-name-visible {
-    animation: name-anim 0.75s;
+    animation: fade-in 0.75s;
 }
 
-@keyframes name-anim {
+/* Game results */
+
+.game-results {
+    min-width: 100vw;
+    min-height: 100vh;
+    background: linear-gradient(#D22999, #6253D0);
+    padding: 1em;
+}
+
+#game-winner-container {
+    margin: auto;
+    width: 75%;
+    height: 25em;
+    border-radius: 0.5em;
+    border: 1px solid #fff;
+}
+
+#game-winner-container>h2 {
+    padding-top: 6.25em;
+    text-align: center;
+}
+
+.winner-prompt {
+    color: #fff;
+}
+
+.winner-prompt.visible {
+    display: block;
+    animation: fade-in 0.3s;
+}
+
+.winner-prompt.invisible {
+    display: none;
+    animation: fade-out 0.3s;
+}
+
+@keyframes fade-in {
     from {
         opacity: 0;
         display: none;
@@ -182,7 +217,7 @@
     }
 }
 
-@keyframes prompt-anim {
+@keyframes fade-out {
     from {
         opacity: 1;
         display: initial;
