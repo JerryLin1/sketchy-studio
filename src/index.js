@@ -1,9 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import './index.css'
+
 import { BrowserRouter, Route, MemoryRouter, Switch } from "react-router-dom";
 import Client from "./client";
 import Paint from "./Components/Paint";
+
+import Home from "./Components/Home";
+import Lobby from "./Components/Lobby";
+import Game from "./Components/Game";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,19 +19,19 @@ class App extends React.Component {
     this.client = new Client({
       match: props.match,
     });
-    
+    console.log(this.client)
     // this.paints = {
     //   //socket.id: Paint element
     // };
+
     this.client.socket.on("newClient", (socket) => {});
-    console.log(this.client.socket.idgreg)
   }
 
   render() {
     return (
       <div>
         <Switch>
-          <Route>
+          {/* <Route>
             Hello World
             <Paint
               props={{
@@ -31,9 +39,10 @@ class App extends React.Component {
                 client: this.client,
               }}
             />
-          </Route>
-          {/* <Route path="/:roomId?" exact render={(props) => (<Home client={this.client} match={props.match} />)} />
-          <Route path="/:roomId/lobby" exact render={(props) => (<Lobby client={this.client} match={props.match} />)} /> */}
+          </Route> */}
+          <Route path="/:roomId?" exact render={(props) => (<Lobby client={this.client} match={props.match} />)} />
+          <Route path="/:roomId/lobby" exact render={(props) => (<Lobby client={this.client} match={props.match} />)} />
+          <Route path="/:roomId/game" exact render={(props) => (<Game client={this.client} match={props.match} />)} />
         </Switch>
       </div>
     );

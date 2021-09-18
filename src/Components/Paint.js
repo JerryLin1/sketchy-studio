@@ -161,7 +161,7 @@ let Paint = (props) => {
     paintedLinesHistory.push([...paintedLines]);
   };
   return (
-    <div>
+    <div id="canvas">
       <Sketch setup={setup} draw={draw} mouseReleased={mouseReleased} />
       <span
         style={{ dislpay: "inline" }}
