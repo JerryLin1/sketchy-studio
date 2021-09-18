@@ -64,7 +64,10 @@ export default class Lobby extends React.Component {
         <img src={logo} style={{transform: "scale(0.75)"}}/>
         <Row>
           <center>
-            <Button variant="outline-light" id="startGame">
+            <Button variant="outline-light"
+            onClick = {() => {
+              this.socket.emit("startGame");
+            }}>
               Start game
             </Button>
           </center>

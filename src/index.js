@@ -9,11 +9,23 @@ import Paint from "./Components/Paint";
 
 import Home from "./Components/Home";
 import Lobby from "./Components/Lobby";
+<<<<<<< HEAD
 import RoundResults from "./Components/RoundResults";
 import GameResults from "./Components/GameResults";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DrawingPromptsPhase from "./Components/DrawingPromptsPhase";
+=======
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import DrawingPhase from "./Components/DrawingPhase";
+import DescribingPhase from "./Components/DescribingPhase";
+
+import RoundResultsPhase from "./Components/RoundResultsPhase";
+
+import GameResultsPhase from "./Components/GameResultsPhase";
+
+>>>>>>> 3a7da02291c8aeae019257e91708d15ac94fbbbd
 
 class App extends React.Component {
   constructor(props) {
@@ -44,7 +56,10 @@ class App extends React.Component {
           </Route> */}
           <Route path="/:roomId?" exact render={(props) => (<DrawingPromptsPhase client={this.client} match={props.match} />)} />
           <Route path="/:roomId/lobby" exact render={(props) => (<Lobby client={this.client} match={props.match} />)} />
-          <Route path="/:roomId/game" exact render={(props) => (<DrawingPromptsPhase client={this.client} match={props.match} />)} />
+          <Route path="/:roomId/drawing" exact render={(props) => (<DrawingPhase client={this.client} match={props.match} />)} />
+          <Route path="/:roomId/describing" exact render={(props) => (<DescribingPhase client={this.client} match={props.match} />)} />
+          <Route path="/:roomId/round_results" exact render={(props) => (<RoundResultsPhase client={this.client} match={props.match} />)} />
+          <Route path="/:roomId/game_results" exact render={(props) => (<GameResultsPhase client={this.client} match={props.match} />)} />
         </Switch>
       </div>
     );
@@ -52,8 +67,8 @@ class App extends React.Component {
 }
 
 ReactDOM.render(
-  <MemoryRouter>
+  <BrowserRouter>
     <Route render={(props) => <App match={props} />} />
-  </MemoryRouter>,
+  </BrowserRouter>,
   document.getElementById("root")
 );
