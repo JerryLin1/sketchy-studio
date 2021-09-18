@@ -8,14 +8,53 @@ function Canvas(props) {
   const isDescriber = props.props.isDescriber;
   var paintedLines = [];
   var paintedLinesHistory = [[...paintedLines]];
+  window.color = "rgb(0,0,0)";
+  //   var [color, setColor] = useState("rgb(255,0,0)");
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const submitRef = useRef(null);
 
-  const [isDrawing, setIsDrawing] = useState(false);
+  const colorBtns = [];
+  const colorBtnsGrid = (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "20px 20px 20px 20px 20px 20px 20px 20px",
+        gridTemplateRows: "20px 20px 20px 20px 20px 20px 20px 20px",
+      }}
+    >
+      {colorBtns}
+    </div>
+  );
+  for (let r = 0; r < 255; r += 32) {
+    for (let g = 0; g < 255; g += 32) {
+      let c = `rgb(${r},${g},${100})`;
+      colorBtns.push(
+        <div
+          onClick={() => {
+            // setColor(c);
+            window.color = c;
+          }}
+          onMouseOver={(e) => {
+            e.target.style.border = "solid 2px white";
+          }}
+          onMouseOut={(e) => {
+            e.target.style.border = "none";
+          }}
+          style={{
+            height: "20px",
+            width: "20px",
+            margin: 0,
+            padding: 0,
+            backgroundColor: c,
+          }}
+        />
+      );
+    }
+  }
 
-  const color = "#000000";
+  const [isDrawing, setIsDrawing] = useState(false);
 
   useEffect(() => {
     submitRef.current.onclick = () => {
@@ -32,7 +71,7 @@ function Canvas(props) {
     $([canvas]).mousedown(function (event) {
       switch (event.which) {
         case 1:
-          context.strokeStyle = color;
+          context.strokeStyle = window.color;
           break;
         case 3:
           context.strokeStyle = "#FFFFFF";
@@ -46,7 +85,6 @@ function Canvas(props) {
     const context = canvas.getContext("2d");
     // context.scale(2, 2);
     context.lineCap = "round";
-    context.strokeStyle = "black";
     context.lineWidth = 5;
     contextRef.current = context;
 
@@ -93,6 +131,7 @@ function Canvas(props) {
         ref={canvasRef}
       />
       <Button ref={submitRef}>Submit</Button>
+      {colorBtnsGrid}
     </div>
   );
 }
