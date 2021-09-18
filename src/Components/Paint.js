@@ -43,7 +43,7 @@ let Paint = (props) => {
         p5.mouseX,
         p5.mouseY,
         swSlider.value(),
-        0x000000
+        new Color(0, 0, 0, 1)
       );
       console.log(line);
       drawLine(line);
@@ -57,7 +57,8 @@ let Paint = (props) => {
 
     function drawLine(line) {
       p5.strokeWeight(line.sw);
-      p5.stroke(line.c);
+      console.log(line.c)
+      p5.stroke(line.c.value);
       p5.line(line.x1, line.y1, line.x2, line.y2);
     }
   };
@@ -78,6 +79,13 @@ function Line(x1, y1, x2, y2, sw, c) {
   this.y2 = y2;
   this.sw = sw;
   this.c = c;
+}
+function Color(r, g, b, a) {
+  this.r = r;
+  this.g = g;
+  this.b = b;
+  this.a = a;
+  this.value = `rgba(${r},${g},${b},${a})`;
 }
 
 export default Paint;
