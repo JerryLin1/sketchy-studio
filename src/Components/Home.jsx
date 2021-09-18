@@ -1,5 +1,7 @@
 import React from "react";
 import { Row, Col, Button, Form } from "react-bootstrap"
+import AvatarCustomizer from "./Avatar/AvatarCustomizer";
+import "./Home.css";
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -15,7 +17,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <div className="home">
-        <div className="page-title">Sketchy Studio B^)</div>
+        <div className="page-title">Sketchy Studio</div>
 
         <Button
         onClick={() => {
@@ -26,10 +28,15 @@ export default class Home extends React.Component {
                 `${window.location.pathname.substring(1)}/lobby`
               );
         }}>
-          join room
+          {window.location.pathname.substring(1) === ""
+            ? "Create room" : "Join room"}
         </Button>
 
-        <Form>
+        <div id = "customization-header">
+          Choose your nickname and avatar!
+        </div>
+
+        <Form id = "customization-form">
           <Row id="customization-row">
             <Col xs="auto">
               <Form.Control
@@ -45,6 +52,10 @@ export default class Home extends React.Component {
             </Col>
           </Row>
         </Form>
+
+        <div>
+          <AvatarCustomizer />
+        </div>
       </div>
     );
   }

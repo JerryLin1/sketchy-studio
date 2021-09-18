@@ -57,7 +57,7 @@ io.on("connection", (socket) => {
   socket.on("joinRoom", info => {
     socket.join(info.roomId);
     socket.room = info.roomId;
-    rooms[info.roomId].clients[socket.id] = new Client(info.nickname, info.roomId);
+    rooms[info.roomId].clients[socket.id] = new Client(info.nickname, info.roomId, info.avatar);
     io.to(info.roomId).emit("updateClientList", rooms[info.roomId].clients);
     console.log(rooms[info.roomId].clients);
   })
@@ -114,8 +114,8 @@ io.on("connection", (socket) => {
     rooms[socket.room].gameState = gameState.ROUND_RESULTS;
     setTimeout(() => {
       rooms[socket.room].currentRound
-      < Object.keys(rooms[socket.room].rounds).length
-      ? startDescribingPhase() : startGameResultPhase()
+        < Object.keys(rooms[socket.room].rounds).length
+        ? startDescribingPhase() : startGameResultPhase()
     }, 5000);
     rooms[socket.room].currentRound++;
 
@@ -147,11 +147,19 @@ function Room() {
 }
 
 // Add new client like rooms[roomId].clients[socket.id] = new Client()
-function Client(nickname, roomId) {
+function Client(nickname, roomId, avatar) {
   this.nickname = nickname;
   this.disconnected = false;
   this.isHost = (numberOfClientsInRoom(roomId) === 0);
-  // TODO: Add avatar property
+  this.avatar = (info.avatar === null) ?
+    {
+      bodyNum: -1,
+      eyesNum: -1,
+      hairNum: -1,
+      mouthNum: -1,
+      shirtNum: -1
+    } :
+    avatar;
 
   // Paint is an array of the lines drawn by the client, which can be emitted and recreated on client side
   this.paint = [];

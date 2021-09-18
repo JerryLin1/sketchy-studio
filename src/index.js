@@ -9,6 +9,7 @@ import Paint from "./Components/Paint";
 
 import Home from "./Components/Home";
 import Lobby from "./Components/Lobby";
+import Canvas from "./Components/Canvas.jsx";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DrawingPhase from "./Components/DrawingPhase";
