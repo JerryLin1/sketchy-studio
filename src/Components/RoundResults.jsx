@@ -3,20 +3,17 @@ import React from "react";
 export default class RoundResults extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      scores: [
-        { name: "Tom", score: 1 },
-        { name: "Yerry", score: 2 },
-        { name: "Roseak", score: 3 },
-        { name: "Christina", score: 4 },
-      ],
-    };
   }
 
   componentDidMount = () => {
-    
-  }
+    let prompt = document.getElementById("winner-prompt");
+    let name = document.getElementById("winner-name");
+
+    setTimeout(() => {
+      prompt.id = "winner-prompt-invisible";
+      name.id = "winner-name-visible";
+    }, 2500);
+  };
 
   render() {
     return (
@@ -25,9 +22,10 @@ export default class RoundResults extends React.Component {
           <h1 className="page-title">Here are the round results!</h1>
         </center>
 
-        <div id="round-result-leaderboard">
+        <div id="round-result-winner">
           <h2 id="winner-prompt">The winner of this round is...</h2>
-          <h2 id="winner-name">Rosak!</h2>
+          <h2 id="winner-name">{"Rosak"}!</h2>
+          <div>Player icon here</div>
         </div>
       </div>
     );

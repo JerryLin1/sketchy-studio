@@ -105,6 +105,27 @@
     margin: auto;
 }
 
+#canvas>span {
+    vertical-align: middle;
+}
+
+#canvas button {
+    border-radius: 0.25em;
+    color: #fff;
+    border: 1px solid #fff;
+    background: transparent;
+    vertical-align: top;
+    text-align: right;
+    transition: 0.3s;
+}
+
+#canvas button:hover {
+    background: #fff;
+    border: 1px solid #000;
+    color: #000;
+    border: none;
+}
+
 /* Round Results */
 
 .round-results {
@@ -113,17 +134,53 @@
     background: linear-gradient(#D22999, #6253D0);
 }
 
-#round-result-leaderboard {
+#round-result-winner {
     margin: auto;
     width: 50%;
-    height: 5em;
+    height: 15em;
     font-size: 1.5em;
     border: 1px solid #ccc;
     border-radius: 0.25em;
 }
 
-#round-result-leaderboard>h2 {
+#round-result-winner>* {
+    color: #fff;
     width: fit-content;
     padding-top: 1.25em;
     margin: auto;
+}
+
+#winner-prompt-invisible {
+    animation: prompt-anim 0.75s;
+    display: none;
+}
+
+#winner-name {
+    display: none;
+}
+
+#winner-name-visible {
+    animation: name-anim 0.75s;
+}
+
+@keyframes name-anim {
+    from {
+        opacity: 0;
+        display: none;
+    }
+    to {
+        opacity: 1;
+        display: block;
+    }
+}
+
+@keyframes prompt-anim {
+    from {
+        opacity: 1;
+        display: initial;
+    }
+    to {
+        opacity: 0;
+        display: none;
+    }
 }

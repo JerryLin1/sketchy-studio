@@ -1,4 +1,5 @@
 import React from "react";
+import { Col, Row } from "react-bootstrap";
 // import { Row, Col, Button } from "react-bootstrap";
 import Sketch from "react-p5";
 
@@ -114,7 +115,7 @@ let Paint = (props) => {
         if (
           paintedLinesHistory.length - 1 + undoLevel > 0 &&
           paintedLinesHistory.length - 1 + undoLevel <
-            paintedLinesHistory.length
+          paintedLinesHistory.length
         ) {
           undoLevel--;
           undoHistoryLevel();
@@ -136,7 +137,7 @@ let Paint = (props) => {
         if (
           paintedLinesHistory.length - 1 + undoLevel >= 0 &&
           paintedLinesHistory.length - 1 + undoLevel <
-            paintedLinesHistory.length - 1
+          paintedLinesHistory.length - 1
         ) {
           undoLevel++;
           undoHistoryLevel();
@@ -181,21 +182,26 @@ let Paint = (props) => {
   return (
     <div id="canvas">
       <Sketch setup={setup} draw={draw} mouseReleased={mouseReleased} />
-      <span
-        style={{ dislpay: "inline" }}
-        id="swSliderWrapper"
-        ref={swSliderWrapper}
-      />
-      <span
-        style={{ display: "inline" }}
-        id="colorPickerWrapper"
-        ref={colorPickerWrapper}
-      />
-      <span
-        style={{ display: "inline" }}
-        id="submitButtonWrapper"
-        ref={submitButtonWrapper}
-      />
+      <Row>
+        <Col>
+          <span
+            id="swSliderWrapper"
+            ref={swSliderWrapper}
+          />
+        </Col>
+        <Col>
+          <span
+            id="colorPickerWrapper"
+            ref={colorPickerWrapper}
+          />
+        </Col>
+        <Col style={{ textAlign: "right" }}>
+          <span
+            id="submitButtonWrapper"
+            ref={submitButtonWrapper}
+          />
+        </Col>
+      </Row>
     </div>
   );
 };

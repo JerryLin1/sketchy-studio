@@ -9,11 +9,11 @@ import Paint from "./Components/Paint";
 
 import Home from "./Components/Home";
 import Lobby from "./Components/Lobby";
-import Game from "./Components/Game";
 import RoundResults from "./Components/RoundResults";
 import GameResults from "./Components/GameResults";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import DrawingPromptsPhase from "./Components/DrawingPromptsPhase";
 
 class App extends React.Component {
   constructor(props) {
@@ -42,9 +42,9 @@ class App extends React.Component {
               }}
             />
           </Route> */}
-          <Route path="/:roomId?" exact render={(props) => (<RoundResults client={this.client} match={props.match} />)} />
+          <Route path="/:roomId?" exact render={(props) => (<DrawingPromptsPhase client={this.client} match={props.match} />)} />
           <Route path="/:roomId/lobby" exact render={(props) => (<Lobby client={this.client} match={props.match} />)} />
-          <Route path="/:roomId/game" exact render={(props) => (<Game client={this.client} match={props.match} />)} />
+          <Route path="/:roomId/game" exact render={(props) => (<DrawingPromptsPhase client={this.client} match={props.match} />)} />
         </Switch>
       </div>
     );
