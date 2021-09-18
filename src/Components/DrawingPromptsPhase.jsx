@@ -3,7 +3,7 @@ import Client from "../client";
 
 import Paint from "./Paint";
 
-export default class Game extends React.Component {
+export default class DrawingPromptsPhase extends React.Component {
   constructor(props) {
     super(props);
     this.client = new Client({

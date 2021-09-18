@@ -57,6 +57,8 @@ io.on("connection", (socket) => {
     io.to(info.roomId).emit("updateClientList", rooms[info.roomId].clients);
     console.log(rooms[info.roomId].clients);
   })
+
+  
 });
 
 // Make new room like rooms[roomId] = new Room();
