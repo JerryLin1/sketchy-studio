@@ -38,8 +38,8 @@ io.on("connection", (socket) => {
     console.log(`${socket.id} has disconnected.`);
   });
 
-  socket.on("draw", (line) => {
-    socket.broadcast.emit("draw", line)
+  socket.on("draw", (paintedLines) => {
+    io.emit("draw", paintedLines)
   });
 
   socket.on("createRoom", () => {
