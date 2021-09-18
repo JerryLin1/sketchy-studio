@@ -1,13 +1,16 @@
 import React from "react";
+// import { Row, Col, Button } from "react-bootstrap";
 import Sketch from "react-p5";
 
 let Paint = (props) => {
   // sw = strokeweight = pen width
   let swSliderWrapper = React.useRef(null);
   let colorPickerWrapper = React.useRef(null);
+  let submitButtonWrapper = React.useRef(null);
 
   var swSlider;
   var colorPicker;
+  var submitButton;
 
   var linesToReceive = [];
   // linesToDraw every frame. This array is iterated over, drawn, and cleared every frame
@@ -36,6 +39,12 @@ let Paint = (props) => {
     colorPicker = p5.createColorPicker(0x000000);
     colorPicker.parent(colorPickerWrapper.current);
 
+    submitButton = p5.createButton("Submit");
+    submitButton.mousePressed(() => {
+      props.props.client.socket.emit("draw", paintedLines);
+    });
+    submitButton.parent(submitButtonWrapper.current);
+
     p5.background(250);
     p5.strokeWeight(5);
 
@@ -46,10 +55,14 @@ let Paint = (props) => {
       }
     }, 5);
 
-    props.props.client.socket.on("draw", (line) => {
+    props.props.client.socket.on("draw", (incomingPaintedLines) => {
       // linesToReceive will delay the drawing. Would be cool during voting phase to see drawing progress?
       // linesToReceive.push(line);
-      linesToDraw.push(line);
+      p5.clear();
+      paintedLines = [];
+      for (let line of incomingPaintedLines) {
+        linesToReceive.push(line);
+      }
     });
   };
   const draw = (p5) => {
@@ -71,7 +84,7 @@ let Paint = (props) => {
           colorPicker.value()
         );
         drawLine(line);
-        props.props.client.socket.emit("draw", line);
+        // props.props.client.socket.emit("draw", line);
       }
       // Right mouse button erases
       else if (p5.mouseButton === p5.RIGHT) {
@@ -84,7 +97,7 @@ let Paint = (props) => {
           250
         );
         drawLine(line);
-        props.props.client.socket.emit("draw", line);
+        // props.props.client.socket.emit("draw", line);
       }
     }
 
@@ -172,6 +185,11 @@ let Paint = (props) => {
         style={{ display: "inline" }}
         id="colorPickerWrapper"
         ref={colorPickerWrapper}
+      />
+      <span
+        style={{ display: "inline" }}
+        id="submitButtonWrapper"
+        ref={submitButtonWrapper}
       />
     </div>
   );
