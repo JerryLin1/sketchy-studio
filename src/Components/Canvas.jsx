@@ -3,6 +3,7 @@ import { Row, Col, Button } from "react-bootstrap";
 import $ from "jquery";
 
 function Canvas(props) {
+  let pngsrc = "";
   const client = props.props.client;
   const isDescriber = props.props.isDescriber;
   var paintedLines = [];
@@ -79,6 +80,7 @@ function Canvas(props) {
   const submit = () => {
     let pngString = canvasRef.current.toDataURL();
     client.socket.emit("draw", pngString);
+    client.socket.emit("finishedDrawing");
   };
 
   return (

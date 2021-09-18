@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Button } from "react-bootstrap";
-import ConditionalWrapper from "./ConditionalWrapper.jsx"
+import ConditionalWrapper from "./ConditionalWrapper.jsx";
 import "./Lobby.css";
 
 import logo from "../Assets/Logo.png";
@@ -30,23 +30,17 @@ export default class Lobby extends React.Component {
       this.setState({
         lobbyList: Object.values(clients).map((client, key) => {
           return (
-            <div
-              key={key}
-              className="lobby-list-item"
-            >
+            <div key={key} className="lobby-list-item">
               <ConditionalWrapper
                 condition={client.nickname === this.nickname}
                 wrapper={(children) => <strong>{children}</strong>}
               >
                 {client.nickname}
                 {client.isHost && (
-                  
-                <span style = {{color: "#b59700"}}>      HOST</span>
-              )}
+                  <span style={{ color: "#b59700" }}> <strong>HOST</strong></span>
+                )}
               </ConditionalWrapper>
-              <div id = "player-list-avatar-display"
-                
-              >
+              <div id="player-list-avatar-display">
                 <AvatarDisplay
                   avatar={{
                     bodyNum: client.avatar.bodyNum,
@@ -68,25 +62,28 @@ export default class Lobby extends React.Component {
   render() {
     return (
       <div className="lobby">
-        <img src={logo} style={{ transform: "scale(0.75)" }} />
-        <Row>
+        <img id="logo" src={logo} style={{ transform: "scale(0.75)" }} />
+        <div>
           <center>
-            <Button variant="outline-light"
+            <Button
+              variant="outline-light"
               onClick={() => {
                 this.socket.emit("startGame");
-              }}>
+              }}
+              style={{ transform: "scale(1.75)" }}
+            >
               Start game
             </Button>
           </center>
-        </Row>
-        <div id = "url">{this.roomURL}</div>
+        </div>
+        <div id="url">{this.roomURL}</div>
 
-        <Row>
+        <div>
           <div id="player-list">
             <h1 style={{ fontWeight: 700 }}>Players</h1>
             {this.state.lobbyList}
           </div>
-        </Row>
+        </div>
       </div>
     );
   }
