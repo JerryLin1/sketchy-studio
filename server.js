@@ -18,6 +18,10 @@ server.listen(port, () => {
 function randomId(length) {
   return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, length);
 }
+
+function numberOfClientsInRoom(roomId) {
+  return Object.keys(rooms[roomId].clients).length;
+}
 // =================================================
 
 const rooms = {};
@@ -43,14 +47,15 @@ io.on("connection", (socket) => {
     socket.emit("redirect", roomId + "/lobby");
     rooms[roomId] = new Room();
 
-
     console.log("room created " + roomId);
     console.dir(rooms, {depth: null});
   });
 
   socket.on("joinRoom", info => {
     socket.join(info.roomId);
-    rooms[roomId].clients[socket.id] = new Client();
+    rooms[info.roomId].clients[socket.id] = new Client(info.nickname, info.roomId);
+    io.to(info.roomId).emit("updateClientList", rooms[info.roomId].clients);
+    console.log(rooms[info.roomId].clients);
   })
 });
 
@@ -65,9 +70,10 @@ function Room() {
   // TODO: more stuff here
 }
 // Add new client like rooms[roomId].clients[socket.id] = new Client()
-function Client(nickname) {
+function Client(nickname, roomId) {
   this.nickname = nickname;
   this.disconnected = false;
+  this.isHost = (numberOfClientsInRoom(roomId) === 1);
   // TODO: Add avatar property
 
   // Paint is an array of the lines drawn by the client, which can be emitted and recreated on client side

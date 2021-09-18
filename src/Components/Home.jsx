@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Button } from "react-bootstrap"
+import { Row, Col, Button, Form } from "react-bootstrap"
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -24,6 +24,23 @@ export default class Home extends React.Component {
         }}>
           join room
         </Button>
+
+        <Form>
+          <Row id="customization-row">
+            <Col xs="auto">
+              <Form.Control
+                placeholder={"Nickname..."}
+                id="input-nick"
+                autoComplete="off"
+                maxLength="12"
+                onSubmit={() => {
+                  let input = document.getElementById("input-nick");
+                  this.setNick(input.val());
+                }}
+              />
+            </Col>
+          </Row>
+        </Form>
       </div>
     );
   }
