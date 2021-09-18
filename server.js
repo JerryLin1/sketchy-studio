@@ -111,7 +111,8 @@ io.on("connection", (socket) => {
   })
 
   function startDescribingPhase() {
-
+    io.to(socket.room).emit("newState", "DESCRIBE");
+    io.to(socket.room).emit("resetCanvas");
     // TODO: Wipe drawing phase info idk
 
     let currentRound = rooms[socket.room].currentRound;

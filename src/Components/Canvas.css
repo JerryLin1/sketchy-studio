@@ -1,0 +1,28 @@
+
+body {
+    overflow: hidden;
+}
+
+canvas {
+    padding: 0;
+    margin: 0 auto 0 auto;
+    display: block;
+    border-radius: 1em;
+    border: solid #D84D78 5px;
+}
+
+#canvas-settings {
+    margin-top: auto;
+}
+
+#colour-header {
+    font-size: 1.5em;
+    color:white;
+    font-weight: 1000;
+    text-shadow: black 0 0 3px;
+}
+
+#submit-btn {
+    margin-top: 5em;
+    font-size: 1.25em;
+}

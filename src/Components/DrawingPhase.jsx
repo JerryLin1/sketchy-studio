@@ -8,6 +8,13 @@ export default class DrawingPhase extends React.Component {
   constructor(props) {
     super(props);
     this.client = props.client;
+    this.socket = this.client.socket;
+
+    this.state = { gameState: "DRAWING" }
+    this.socket.on("newState", (newState) => {
+      this.setState({ gameState: newState });
+    })
+
   }
 
   sendDrawing = () => {
@@ -18,6 +25,26 @@ export default class DrawingPhase extends React.Component {
   render() {
     return (
       <div className="game">
+        <div style={{
+          color: "white",
+          textShadow: "black 0 0 3px",
+          fontWeight: "1000",
+          textAlign: "center",
+          fontSize: "3em"
+
+        }}>{this.state.gameState === "DESCRIBE" ? "Description" : "Drawing"} Phase!</div>
+        {this.state.gameState === "DESCRIBE" && (
+          <div style={{
+            color: "white",
+          textShadow: "black 0 0 3px",
+          fontWeight: "1000",
+          textAlign: "center",
+          marginBottom: "3em"
+
+          }}>
+            Listen carefully to how the speaker describes the drawing. Try your best to follow their instructions!
+          </div>
+        )}
         <Canvas
           props={{
             isDescriber: true,
