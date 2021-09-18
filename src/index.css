@@ -115,9 +115,15 @@
 
 #round-result-leaderboard {
     margin: auto;
-    padding: 0.5em 2.5em;
     width: 50%;
+    height: 5em;
     font-size: 1.5em;
     border: 1px solid #ccc;
     border-radius: 0.25em;
+}
+
+#round-result-leaderboard>h2 {
+    width: fit-content;
+    padding-top: 1.25em;
+    margin: auto;
 }

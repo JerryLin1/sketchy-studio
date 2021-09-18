@@ -1,7 +1,8 @@
 import React from "react";
 import { Row, Button } from "react-bootstrap";
-import ConditionalWrapper from "./ConditionalWrapper.jsx"
+import ConditionalWrapper from "./ConditionalWrapper.jsx";
 
+import logo from "../Assets/Screen_Shot_2021-09-18_at_12.22.10_PM.png";
 
 export default class Lobby extends React.Component {
   constructor(props) {
@@ -17,12 +18,12 @@ export default class Lobby extends React.Component {
       this.client.joinRoom(props.match.params.roomId);
     }
 
-    this.socket.on("updateClientList", clients => {
+    this.socket.on("updateClientList", (clients) => {
       this.name = clients[this.client.socket.id].name;
       this.room = clients;
 
       console.log(clients);
-      
+
       this.setState({
         lobbyList: Object.values(clients).map((client, key) => {
           return (
@@ -31,9 +32,13 @@ export default class Lobby extends React.Component {
               className="lobby-list-item"
               style={{
                 boxShadow:
-                  client.nickname === this.nickname ? "0 0 10px #f2ff9e" : "none",
+                  client.nickname === this.nickname
+                    ? "0 0 10px #f2ff9e"
+                    : "none",
                 border:
-                  client.nickname === this.nickname ? "solid #e8ff52 3px" : "none",
+                  client.nickname === this.nickname
+                    ? "solid #e8ff52 3px"
+                    : "none",
               }}
             >
               <ConditionalWrapper
@@ -45,20 +50,17 @@ export default class Lobby extends React.Component {
               {client.isHost && (
                 <span style={{ color: "#b59700", float: "right" }}> HOST</span>
               )}
-
             </div>
           );
-        })
-      })
-    })
+        }),
+      });
+    });
   }
-
-
-
 
   render() {
     return (
       <div className="lobby">
+        <img src={logo} style={{transform: "scale(0.75)"}}/>
         <Row>
           <center>
             <Button variant="outline-light" id="startGame">

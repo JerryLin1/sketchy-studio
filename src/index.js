@@ -25,7 +25,7 @@ class App extends React.Component {
     // this.paints = {
     //   //socket.id: Paint element
     // };
-    this.client.socket.on("newClient", (socket) => {});
+    this.client.socket.on("newClient", (socket) => { });
   }
 
   render() {

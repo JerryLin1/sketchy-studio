@@ -1,9 +1,5 @@
 import React from "react";
 
-import { Award } from "react-bootstrap-icons";
-
-import { Row, Col } from "react-bootstrap";
-
 export default class RoundResults extends React.Component {
   constructor(props) {
     super(props);
@@ -18,6 +14,10 @@ export default class RoundResults extends React.Component {
     };
   }
 
+  componentDidMount = () => {
+    
+  }
+
   render() {
     return (
       <div className="round-results">
@@ -26,7 +26,8 @@ export default class RoundResults extends React.Component {
         </center>
 
         <div id="round-result-leaderboard">
-
+          <h2 id="winner-prompt">The winner of this round is...</h2>
+          <h2 id="winner-name">Rosak!</h2>
         </div>
       </div>
     );
