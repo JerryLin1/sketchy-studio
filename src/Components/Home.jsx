@@ -1,5 +1,7 @@
 import React from "react";
 import { Row, Col, Button, Form } from "react-bootstrap"
+import logo from "../Assets/Logo.png";
+
 import AvatarCustomizer from "./Avatar/AvatarCustomizer";
 import "./Home.css";
 
@@ -17,7 +19,8 @@ export default class Home extends React.Component {
   render() {
     return (
       <div className="home">
-        <div className="page-title">Sketchy Studio</div>
+        <img src={logo} style={{ transform: "scale(0.55)", display: "block", margin: "auto" }} />
+
 
         <Button
         onClick={() => {
