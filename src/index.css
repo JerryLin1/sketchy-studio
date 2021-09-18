@@ -151,7 +151,7 @@
 }
 
 #winner-prompt-invisible {
-    animation: prompt-anim 0.75s;
+    animation: fade-out 0.75s;
     display: none;
 }
 
@@ -160,29 +160,7 @@
 }
 
 #winner-name-visible {
-    animation: name-anim 0.75s;
-}
-
-@keyframes name-anim {
-    from {
-        opacity: 0;
-        display: none;
-    }
-    to {
-        opacity: 1;
-        display: block;
-    }
-}
-
-@keyframes prompt-anim {
-    from {
-        opacity: 1;
-        display: initial;
-    }
-    to {
-        opacity: 0;
-        display: none;
-    }
+    animation: fade-in 0.75s;
 }
 
 /* Game results */
@@ -198,8 +176,8 @@
     margin: auto;
     width: 75%;
     height: 25em;
-    border-radius: 0.25em;
-    border: 1px solid #000;
+    border-radius: 0.5em;
+    border: 1px solid #fff;
 }
 
 #game-winner-container>h2 {
@@ -207,18 +185,38 @@
     text-align: center;
 }
 
-.winner-prompt-visible {
+.winner-prompt {
+    color: #fff;
+}
+
+.winner-prompt.visible {
     display: block;
+    animation: fade-in 0.3s;
 }
 
-.winner-prompt-invisible {
+.winner-prompt.invisible {
     display: none;
+    animation: fade-out 0.3s;
 }
 
-@keyframes winner-fade-in {
-    
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        display: none;
+    }
+    to {
+        opacity: 1;
+        display: block;
+    }
 }
 
-@keyframes winner-fade-out {
-    
+@keyframes fade-out {
+    from {
+        opacity: 1;
+        display: initial;
+    }
+    to {
+        opacity: 0;
+        display: none;
+    }
 }
