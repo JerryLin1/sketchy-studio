@@ -5,6 +5,7 @@ import "./Lobby.css";
 
 import logo from "../Assets/Screen_Shot_2021-09-18_at_12.22.10_PM.png";
 import AvatarDisplay from "./Avatar/AvatarDisplay.jsx";
+import Canvas from "./Canvas.jsx";
 
 export default class Lobby extends React.Component {
   constructor(props) {
@@ -80,6 +81,7 @@ export default class Lobby extends React.Component {
   render() {
     return (
       <div className="lobby">
+        <Canvas/>
         <img src={logo} style={{ transform: "scale(0.75)" }} />
         <Row>
           <center>
