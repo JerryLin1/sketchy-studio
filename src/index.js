@@ -40,7 +40,7 @@ class App extends React.Component {
               }}
             />
           </Route> */}
-          <Route path="/:roomId?" exact render={(props) => (<Game client={this.client} match={props.match} />)} />
+          <Route path="/:roomId?" exact render={(props) => (<Lobby client={this.client} match={props.match} />)} />
           <Route path="/:roomId/lobby" exact render={(props) => (<Lobby client={this.client} match={props.match} />)} />
           <Route path="/:roomId/game" exact render={(props) => (<Game client={this.client} match={props.match} />)} />
         </Switch>
