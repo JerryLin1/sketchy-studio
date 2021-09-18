@@ -17,6 +17,14 @@ class App extends React.Component {
     return (
       <div>
         <Switch>
+          <Route>
+            Hello World
+            <Paint
+              props={{
+                client: this.client,
+              }}
+            />
+          </Route>
           {/* <Route path="/:roomId?" exact render={(props) => (<Home client={this.client} match={props.match} />)} />
           <Route path="/:roomId/lobby" exact render={(props) => (<Lobby client={this.client} match={props.match} />)} /> */}
         </Switch>
@@ -27,8 +35,6 @@ class App extends React.Component {
 
 ReactDOM.render(
   <MemoryRouter>
-    Hello World
-    <Paint/>
     <Route render={(props) => <App match={props} />} />
   </MemoryRouter>,
   document.getElementById("root")

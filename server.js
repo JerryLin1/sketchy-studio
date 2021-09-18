@@ -19,6 +19,9 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log(`${socket.id} has disconnected.`);
   });
+  socket.on("draw", (line) => {
+    socket.broadcast.emit("draw", line)
+  });
 });
 
 // Make new room like rooms[roomId] = new Room();
