@@ -19,13 +19,12 @@ class App extends React.Component {
     this.client = new Client({
       match: props.match,
     });
-
+    console.log(this.client)
     // this.paints = {
     //   //socket.id: Paint element
     // };
 
-    this.client.socket.on("newClient", (socket) => { });
-    console.log(this.client.socket.idgreg)
+    this.client.socket.on("newClient", (socket) => {});
   }
 
   render() {
