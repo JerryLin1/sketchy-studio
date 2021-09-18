@@ -26,12 +26,14 @@ export default class Lobby extends React.Component {
       <div className="lobby">
         <Row>
           <center>
-            <Button variant="outline-light">Start game</Button>
+            <Button variant="outline-light" id="startGame">
+              Start game
+            </Button>
           </center>
         </Row>
         <Row>
           <div id="player-list">
-            <h1 style={{fontWeight: 700}}>Players</h1>
+            <h1 style={{ fontWeight: 700 }}>Players</h1>
             {this.renderPlayers()}
           </div>
         </Row>
