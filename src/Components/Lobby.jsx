@@ -3,7 +3,7 @@ import { Row, Button } from "react-bootstrap";
 import ConditionalWrapper from "./ConditionalWrapper.jsx"
 import "./Lobby.css";
 
-import logo from "../Assets/Screen_Shot_2021-09-18_at_12.22.10_PM.png";
+import logo from "../Assets/Logo.png";
 import AvatarDisplay from "./Avatar/AvatarDisplay.jsx";
 import Canvas from "./Canvas.jsx";
 
@@ -33,32 +33,19 @@ export default class Lobby extends React.Component {
             <div
               key={key}
               className="lobby-list-item"
-              style={{
-                boxShadow:
-                  client.nickname === this.nickname
-                    ? "0 0 10px #f2ff9e"
-                    : "none",
-                border:
-                  client.nickname === this.nickname
-                    ? "solid #e8ff52 3px"
-                    : "none",
-              }}
             >
               <ConditionalWrapper
                 condition={client.nickname === this.nickname}
                 wrapper={(children) => <strong>{children}</strong>}
               >
                 {client.nickname}
-              </ConditionalWrapper>
-              {client.isHost && (
-                <span style={{ color: "#b59700", float: "right" }}> HOST</span>
+                {client.isHost && (
+                  
+                <span style = {{color: "#b59700"}}>      HOST</span>
               )}
-              <div
-                style={{
-                  borderRadius: "0 0 10px 10px",
-                  boxSizing: "border-box",
-                  backgroundColor: "#52aeff",
-                }}
+              </ConditionalWrapper>
+              <div id = "player-list-avatar-display"
+                
               >
                 <AvatarDisplay
                   avatar={{
@@ -68,7 +55,7 @@ export default class Lobby extends React.Component {
                     mouthNum: client.avatar.mouthNum,
                     shirtNum: client.avatar.shirtNum,
                   }}
-                  size={0.5}
+                  size={1.5}
                 />
               </div>
             </div>
@@ -91,8 +78,9 @@ export default class Lobby extends React.Component {
               Start game
             </Button>
           </center>
-          <div>{this.roomURL}</div>
         </Row>
+        <div id = "url">{this.roomURL}</div>
+
         <Row>
           <div id="player-list">
             <h1 style={{ fontWeight: 700 }}>Players</h1>
