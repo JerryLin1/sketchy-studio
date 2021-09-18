@@ -21,7 +21,6 @@ export default class Home extends React.Component {
       <div className="home">
         <img src={logo} style={{ transform: "scale(0.55)", display: "block", margin: "0 auto -5em auto" }} />
 
-
         <Button
         id = "start-button"
         onClick={() => {
