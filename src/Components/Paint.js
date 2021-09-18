@@ -64,7 +64,7 @@ let Paint = (props) => {
   };
 
   return (
-    <div>
+    <div id="canvas">
       <Sketch setup={setup} draw={draw} />
       <div id="swSliderWrapper" ref={swSliderWrapper}></div>
     </div>
