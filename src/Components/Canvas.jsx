@@ -39,12 +39,17 @@ function Canvas() {
     }
 
     return (
-        <div>asfdgd<canvas
+        <canvas
+            style = {
+                {
+                    backgroundColor: "white"
+                }
+            }
             onMouseDown={startDrawing}
             onMouseUp={finishDrawing}
             onMouseMove={draw}
             ref={canvasRef}
-        /></div>
+        />
 
     )
 }

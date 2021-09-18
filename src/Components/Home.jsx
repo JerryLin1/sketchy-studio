@@ -19,10 +19,11 @@ export default class Home extends React.Component {
   render() {
     return (
       <div className="home">
-        <img src={logo} style={{ transform: "scale(0.55)", display: "block", margin: "auto" }} />
+        <img src={logo} style={{ transform: "scale(0.55)", display: "block", margin: "0 auto -5em auto" }} />
 
 
         <Button
+        id = "start-button"
         onClick={() => {
    
           window.location.pathname.substring(1) === ""
