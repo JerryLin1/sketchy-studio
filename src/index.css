@@ -1,0 +1,47 @@
+* {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.page-title {
+    font-size: 3em;
+    font-weight: 700;
+}
+
+.home {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1em;
+    width: calc(100vw - 2em);
+    height: calc(100vh - 2em);
+    background: linear-gradient(rgb(255, 238, 0), rgb(185, 0, 0));
+    overflow: hidden;
+}
+
+.home:first-child {
+    text-align: center;
+}
+
+#join-room-btn {
+    font-size: 1.5em;
+    margin: auto;
+    margin-top: 5em;
+    width: 20%;
+    height: 5em;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 0.5em;
+    background-color: transparent;
+}
+
+#join-room-btn::after {
+    content: "";
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: 100%;
+}
+
+#join-room-btn::after:hover {
+    color: #000;
+    width: 100%;
+    height: 100%;
+}

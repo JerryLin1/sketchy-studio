@@ -1,8 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import './index.css'
+
 import { BrowserRouter, Route, MemoryRouter, Switch } from "react-router-dom";
-import Client from "./client";
+import Client from "./client.js";
+
+import Home from "./Components/Home.jsx";
 
 class App extends React.Component {
   constructor(props) {
@@ -28,8 +32,7 @@ class App extends React.Component {
 
 ReactDOM.render(
   <MemoryRouter>
-    Hello World
-    <Route render={(props) => <App match={props} />} />
+    <Route render={(props) => <Home/>} />
   </MemoryRouter>,
   document.getElementById("root")
 );
