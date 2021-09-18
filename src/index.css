@@ -184,3 +184,41 @@
         display: none;
     }
 }
+
+/* Game results */
+
+.game-results {
+    min-width: 100vw;
+    min-height: 100vh;
+    background: linear-gradient(#D22999, #6253D0);
+    padding: 1em;
+}
+
+#game-winner-container {
+    margin: auto;
+    width: 75%;
+    height: 25em;
+    border-radius: 0.25em;
+    border: 1px solid #000;
+}
+
+#game-winner-container>h2 {
+    padding-top: 6.25em;
+    text-align: center;
+}
+
+.winner-prompt-visible {
+    display: block;
+}
+
+.winner-prompt-invisible {
+    display: none;
+}
+
+@keyframes winner-fade-in {
+    
+}
+
+@keyframes winner-fade-out {
+    
+}
