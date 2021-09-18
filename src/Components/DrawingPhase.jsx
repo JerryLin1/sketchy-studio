@@ -1,5 +1,6 @@
 import React from "react";
 import Client from "../client";
+import Canvas from "../Components/Canvas"
 
 import Paint from "./Paint";
 
@@ -17,10 +18,9 @@ export default class DrawingPhase extends React.Component {
   render() {
     return (
       <div className="game">
-        <Paint
+        <Canvas
           props={{
-            forDisplay: false,
-            id: this.client.socket.id,
+            isDescriber: true,
             client: this.client,
           }}
         />

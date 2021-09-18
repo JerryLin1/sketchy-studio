@@ -81,7 +81,6 @@ export default class Lobby extends React.Component {
   render() {
     return (
       <div className="lobby">
-        <Canvas/>
         <img src={logo} style={{ transform: "scale(0.75)" }} />
         <Row>
           <center>

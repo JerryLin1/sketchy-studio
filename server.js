@@ -63,10 +63,11 @@ io.on("connection", (socket) => {
   })
 
   socket.on("draw", (paintedLines) => {
-    if (rooms[roomId].gameState === gameState.DRAWING) {
-      rooms[socket.roomId].originalDrawings[socket.id] = paintedLines;
+    console.log(paintedLines)
+    if (rooms[socket.room].gameState === gameState.DRAWING) {
+      rooms[socket.room].originalDrawings[socket.id] = paintedLines;
     }
-    else if (rooms[roomId].gameState === gameState.DESCRIBE) {
+    else if (rooms[socket.room].gameState === gameState.DESCRIBE) {
       // rooms[socket.roomId].originalDrawings[socket.id] = paintedLines;
     }
     io.emit("draw", paintedLines)
