@@ -23,7 +23,6 @@ class App extends React.Component {
     // this.paints = {
     //   //socket.id: Paint element
     // };
-
     this.client.socket.on("newClient", (socket) => {});
   }
 
@@ -37,6 +36,7 @@ class App extends React.Component {
               props={{
                 id: this.client.socket.id,
                 client: this.client,
+                forDisplay: false,
               }}
             />
           </Route>
