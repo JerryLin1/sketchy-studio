@@ -5,13 +5,14 @@
 }
 
 #player-list {
-  padding: 1em;
+  padding: 1.5em;
   color: #fff;
   margin: 1em auto 0 auto;
   height: fit-content;
   width: 50%;
-  border: 4px solid black;
+  border: 2px solid #2823bc6c  ;
   border-radius: 10px;
+  background-color: #2823bc27  ;
 }
 
 .player-card {
@@ -63,8 +64,9 @@ h1 {
 }
 
 #top-bar {
-    background-color: #2823BC ;
-    height: 125px;
+    background-color: #6254D0  ;
+    height: 130px;
     padding: 2.5em 0 0 0 !important;
     box-shadow: black 0 5px 15px;
+    margin: 0 auto;
 }
