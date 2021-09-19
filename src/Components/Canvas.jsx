@@ -51,8 +51,8 @@ function Canvas(props) {
         // width: "164px",
         // boxSizing: "border-box",
         display: "grid",
-        gridTemplateColumns: "20px 20px 20px 20px 20px 20px 20px 20px",
-        gridTemplateRows: "20px 20px",
+        gridTemplateColumns: "40px 40px 40px 40px 40px 40px 40px 40px",
+        gridTemplateRows: "40px 40px",
       }}
     >
       {colorBtns}
@@ -98,8 +98,9 @@ function Canvas(props) {
           e.target.style.border = "none";
         }}
         style={{
-          height: "20px",
-          width: "20px",
+          height: "40px",
+          width: "40px",
+          cursor: "pointer",
           margin: 0,
           padding: 0,
           backgroundColor: c,
@@ -194,7 +195,7 @@ function Canvas(props) {
         </Col>
         <Col id="canvas-settings">
           <Row>
-            <div id="colour-header">Colour Picker:</div>
+            <div id="colour-header" className="noselect">Colour Picker:</div>
             <div style={{ margin: "inherit" }}>{colorBtnsGrid}</div>
           </Row>
           <br />

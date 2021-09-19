@@ -87,13 +87,13 @@ export default class Lobby extends React.Component {
           Start game
         </Button>
         <div id="url">
-          <strong>Room Code: </strong>
+          <strong className="noselect">Room Code: </strong>
           {this.roomURL}
         </div>
 
         <div>
           <div id="player-list" style={{marginTop: "3em"}}>
-            <h1 style={{ fontWeight: 700, marginTop: "0em",  }}>Players</h1>
+            <h1 style={{ fontWeight: 700, marginTop: "0em",  }} className="noselect">Players</h1>
             {this.state.lobbyList}
           </div>
         </div>

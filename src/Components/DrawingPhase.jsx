@@ -37,6 +37,7 @@ export default class DrawingPhase extends React.Component {
 
             fontSize: "3em",
           }}
+          className="noselect"
         >
           {this.state.gameState === "DESCRIBE" ? "Description" : "Drawing"}{" "}
           Phase!
