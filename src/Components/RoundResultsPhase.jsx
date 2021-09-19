@@ -2,6 +2,8 @@ import React from "react";
 import { Button, Row, Col } from "react-bootstrap";
 import AvatarDisplay from "./Avatar/AvatarDisplay";
 
+import logo from "../Assets/Logo.png";
+
 import "./RoundResultsPhase.css";
 
 export default class RoundResultsPhase extends React.Component {
@@ -25,16 +27,16 @@ export default class RoundResultsPhase extends React.Component {
       ],
       currentDrawing: 0,
       voted: false,
-      isDescriber: false
-    }
+      isDescriber: false,
+    };
 
     this.socket.on("receiveDrawings", (drawings) => {
       this.setState({ drawings: drawings });
     });
 
-    this.socket.on("receiveIsDescriber", isDescriber => {
+    this.socket.on("receiveIsDescriber", (isDescriber) => {
       this.setState({ isDescriber: isDescriber });
-    })
+    });
 
     this.socket.on("goNext", () => {
       this.setState({ currentDrawing: this.state.currentDrawing + 1 });
@@ -48,9 +50,14 @@ export default class RoundResultsPhase extends React.Component {
   render() {
     return (
       <div className="round-results">
-        <h1 className="page-title" style={{ textAlign: "center" }}>
-          Here are the round results!
-        </h1>
+        <Row id="top-bar">
+          <Col xs={4}>
+            <img id="logo" src={logo} />
+          </Col>
+          <Col xs={4}>
+            Drawing Phase!
+          </Col>
+        </Row>
 
         <Row>
           <Col style={{ textAlign: "center", margin: "auto" }}>
@@ -116,45 +123,6 @@ export default class RoundResultsPhase extends React.Component {
             Vote for this image
           </Button>
         </div>
-
-        <Button disabled={this.state.voted || !this.state.isDescriber || this.state.currentDrawing === 0} onClick={
-          () => {
-            this.socket.emit("voteFor", this.state.drawings.id);
-            this.setState({ voted: true })
-          }}>Vote for this image</Button>
-
-
-        {/* Go prev button */}
-        <Button disabled={this.state.currentDrawing === 0} onClick={() => {
-          if (this.state.currentDrawing > 0) {
-            this.socket.emit("prevImage");
-          }
-        }}>
-
-          Prev drawing
-        </Button>
-
-        {/* Go next button */}
-        <Button onClick={() => {
-          if (this.state.currentDrawing < this.state.drawings.length - 1) {
-            this.socket.emit("nextImage");
-          } else {
-            // Go to next phase
-            this.socket.emit("nextRound");
-          }
-        }}>
-
-          {(this.state.currentDrawing < this.state.drawings.length - 1) ? "Next drawing" : "Next round"}
-        </Button>
-
-
-
-
-        {/* <div id="round-result-winner">
-          <h2 id="winner-prompt">The winner of this round is...</h2>
-          <h2 id="winner-name">{"Rosak"}!</h2>
-          <div>Player icon here</div>
-        </div> */}
       </div>
     );
   }

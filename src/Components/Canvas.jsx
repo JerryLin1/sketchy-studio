@@ -183,7 +183,7 @@ function Canvas(props) {
   return (
     <div>
       <Row>
-        <Col>
+        <Col xs={{offset: 2}}>
           <canvas
             onMouseDown={startDrawing}
             onMouseUp={finishDrawing}
@@ -191,7 +191,7 @@ function Canvas(props) {
             ref={canvasRef}
           />
         </Col>
-        <Col id="canvas-settings">
+        <Col id="canvas-settings" xs={{offset: 1}}>
           <Row>
             <div
               id="colour-header"
@@ -226,7 +226,7 @@ function Canvas(props) {
               disabled={!enabled}
               ref={submitRef}
             >
-              Submit drawing
+              Submit drawing!
             </Button>
           </Row>
         </Col>

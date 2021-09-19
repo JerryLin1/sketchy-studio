@@ -10,9 +10,9 @@
   margin: 1em auto 0 auto;
   height: fit-content;
   width: 50%;
-  border: 2px solid #2823bc6c  ;
+  border: 2px solid #2823bc6c;
   border-radius: 10px;
-  background-color: #2823bc27  ;
+  background-color: #2823bc27;
 }
 
 .player-card {
@@ -49,13 +49,13 @@ h1 {
   position: absolute;
   width: 200px;
   height: auto;
-  top:0;
+  top: 0;
   left: 2.5em;
 }
 
 #url {
   text-align: right;
-  margin-right: 5em;
+  margin-right: 1em;
   text-shadow: -2px -2px 0 #000, 0 -2px 0 #000, 2px -2px 0 #000, 2px 0 0 #000, 2px 2px 0 #000, 0 2px 0 #000, -2px 2px 0 #000, -2px 0 0 #000;
   color: white;
   font-weight: 1000;
@@ -63,9 +63,9 @@ h1 {
 }
 
 #top-bar {
-    background-color: #6254D0  ;
-    height: 130px;
-    padding: 2.5em 0 0 0 !important;
-    box-shadow: black 0 5px 15px;
-    margin: 0 auto;
+  background-color: #6254D0;
+  height: 130px;
+  padding: 2.5em 0 0 0 !important;
+  box-shadow: black 0 5px 15px;
+  margin: 0 auto 1em auto;
 }

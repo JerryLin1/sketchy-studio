@@ -27,7 +27,13 @@ export default class Lobby extends React.Component {
 
       this.setState({
         lobbyList: (
-          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
             {Object.values(clients).map((client, key) => {
               return (
                 <div key={key} className="lobby-list-item">
@@ -72,10 +78,10 @@ export default class Lobby extends React.Component {
     return (
       <div className="lobby">
         <Row id="top-bar">
-          <Col xs = {4}>
+          <Col xs={4}>
             <img id="logo" src={logo} />
           </Col>
-          <Col xs = {4}>
+          <Col xs={4}>
             <Button
               variant="outline-light"
               onClick={() => {
@@ -84,34 +90,30 @@ export default class Lobby extends React.Component {
               style={{
                 margin: "0 auto",
                 display: "block",
-          
 
-                transform: "scale(1.75)"
-   
+                transform: "scale(1.75)",
               }}
             >
               Start game
             </Button>
           </Col>
 
-          <Col xs = {4}>
+          <Col xs={4}>
             <div id="url">
               <strong className="noselect">Room Code: </strong>
               {this.roomURL}
             </div>
           </Col>
-
-
-
-
         </Row>
-
-
-
 
         <div>
           <div id="player-list" style={{ marginTop: "3em" }}>
-            <h1 style={{ fontWeight: 700, marginTop: "0em", }} className="noselect">Players</h1>
+            <h1
+              style={{ fontWeight: 700, marginTop: "0em" }}
+              className="noselect"
+            >
+              Players
+            </h1>
             {this.state.lobbyList}
           </div>
         </div>

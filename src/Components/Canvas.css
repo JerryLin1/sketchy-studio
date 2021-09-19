@@ -6,6 +6,11 @@ canvas {
     border: solid #D84D78 5px;
 }
 
+.countdown {
+    margin-bottom: 1em;
+    text-shadow: -2px -2px 0 #000, 0 -2px 0 #000, 2px -2px 0 #000, 2px 0 0 #000, 2px 2px 0 #000, 0 2px 0 #000, -2px 2px 0 #000, -2px 0 0 #000;
+}
+
 #canvas-settings {
     margin-top: auto;
 }
