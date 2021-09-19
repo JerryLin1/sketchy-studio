@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import AvatarDisplay from "./Avatar/AvatarDisplay";
 
 
 export default class RoundResultsPhase extends React.Component {
@@ -7,24 +8,38 @@ export default class RoundResultsPhase extends React.Component {
     super(props);
     this.client = props.client;
     this.socket = this.client.socket;
-    this.state = { drawings: [{ name: "among", drawing: "placeholder" }], currentDrawing: 0, isHost: true }
+    this.state = {
+      drawings: [{
+        name: "among", drawing: "placeholder", avatar: {
+          bodyNum: -1,
+          eyesNum: -1,
+          hairNum: -1,
+          mouthNum: -1,
+          shirtNum: -1
+        }
+      }],
+      currentDrawing: 0,
+      voted: false,
+      isHost: false
+    }
 
-    this.socket.on("receiveDrawings", (drawings, isHost) => {
+    this.socket.on("receiveDrawings", drawings => {
       this.setState({ drawings: drawings });
+    })
+
+    this.socket.on("receiveIsHost", isHost => {
       this.setState({ isHost: isHost });
     })
 
+    this.socket.on("goNext", () => {
+      this.setState({ currentDrawing: this.state.currentDrawing + 1 })
+    })
+
+    this.socket.on("goPrev", () => {
+      this.setState({ currentDrawing: this.state.currentDrawing - 1 });
+    })
+
   }
-
-  componentDidMount = () => {
-    // let prompt = document.getElementById("winner-prompt");
-    // let name = document.getElementById("winner-name");
-
-    // setTimeout(() => {
-    //   prompt.id = "winner-prompt-invisible";
-    //   name.id = "winner-name-visible";
-    // }, 2500);
-  };
 
   render() {
     return (
@@ -36,21 +51,50 @@ export default class RoundResultsPhase extends React.Component {
         <div id="drawing-container">
           <div id="artist-name">Here's {this.state.drawings[this.state.currentDrawing].name}'s drawing:</div>
           <img src={this.state.drawings[this.state.currentDrawing].drawing} alt="oops" />
+          <AvatarDisplay
+            avatar={{
+              bodyNum: this.state.drawings[this.state.currentDrawing].bodyNum,
+              eyesNum: this.state.drawings[this.state.currentDrawing].eyesNum,
+              hairNum: this.state.drawings[this.state.currentDrawing].hairNum,
+              mouthNum: this.state.drawings[this.state.currentDrawing].mouthNum,
+              shirtNum: this.state.drawings[this.state.currentDrawing].shirtNum,
+            }}
+            size={1.5}
+          />
+
         </div>
 
+        <Button disabled={this.state.voted || !this.state.isHost || this.state.currentDrawing === 0} onClick={
+          () => {
+            this.socket.emit("voteFor", this.state.drawings.id);
+            this.setState({ voted: true })
+          }}>Vote for this image</Button>
 
-        {this.state.isHost && (<Button onClick={() => {
-          if (this.state.currentDrawing < this.state.drawings.length-1) {
-            this.setState({ currentDrawing: this.state.currentDrawing + 1 })
+
+        {/* Go prev button */}
+        <Button disabled={this.state.currentDrawing === 0} onClick={() => {
+          if (this.state.currentDrawing > 0) {
+            this.socket.emit("prevImage");
+          }
+        }}>
+
+          Prev drawing
+        </Button>
+
+        {/* Go next button */}
+        <Button onClick={() => {
+          if (this.state.currentDrawing < this.state.drawings.length - 1) {
+            this.socket.emit("nextImage");
           } else {
             // Go to next phase
             this.socket.emit("nextRound");
           }
-
         }}>
 
-          {(this.state.currentDrawing < this.state.drawings.length-1) ? "Next drawing" : "Next round"}
-        </Button>)}
+          {(this.state.currentDrawing < this.state.drawings.length - 1) ? "Next drawing" : "Next round"}
+        </Button>
+
+
 
 
         {/* <div id="round-result-winner">

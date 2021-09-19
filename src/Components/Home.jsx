@@ -3,6 +3,7 @@ import { Row, Col, Button, Form } from "react-bootstrap";
 import logo from "../Assets/Logo.png";
 
 import AvatarCustomizer from "./Avatar/AvatarCustomizer";
+import Countdown from "./Countdown";
 import "./Home.css";
 
 export default class Home extends React.Component {
@@ -19,7 +20,6 @@ export default class Home extends React.Component {
   render() {
     return (
       <div className="home">
-
         <img
           src={logo}
           style={{

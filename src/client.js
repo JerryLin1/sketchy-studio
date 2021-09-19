@@ -27,6 +27,7 @@ export default class Client extends React.Component {
     });
 
     this.socket.on("startGameResultsPhase", () => {
+
       this.redirectURL(this.roomId + "/game_results");
     });
     this.socket.on("draw", (src) => {
