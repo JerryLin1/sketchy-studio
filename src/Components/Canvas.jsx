@@ -23,8 +23,6 @@ var colors = [
 ];
 
 function Canvas(props) {
-
-  
   const [enabled, setEnabled] = useState(true);
   const client = props.props.client;
   const isDescriber = props.props.isDescriber;
@@ -51,8 +49,8 @@ function Canvas(props) {
         // width: "164px",
         // boxSizing: "border-box",
         display: "grid",
-        gridTemplateColumns: "40px 40px 40px 40px 40px 40px 40px 40px",
-        gridTemplateRows: "40px 40px",
+        gridTemplateColumns: "40px 40px",
+        gridTemplateRows: "40px 40px 40px 40px 40px 40px 40px 40px",
       }}
     >
       {colorBtns}
@@ -195,7 +193,16 @@ function Canvas(props) {
         </Col>
         <Col id="canvas-settings">
           <Row>
-            <div id="colour-header" className="noselect">Colour Picker:</div>
+            <div
+              id="colour-header"
+              className="noselect"
+              style={{
+                textShadow:
+                  "-2px -2px 0 #000, 0 -2px 0 #000, 2px -2px 0 #000, 2px 0 0 #000, 2px 2px 0 #000, 0 2px 0 #000, -2px 2px 0 #000, -2px 0 0 #000",
+              }}
+            >
+              Colour Picker:
+            </div>
             <div style={{ margin: "inherit" }}>{colorBtnsGrid}</div>
           </Row>
           <br />
