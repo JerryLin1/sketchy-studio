@@ -66,7 +66,7 @@ export default class RoundResultsPhase extends React.Component {
               }}
               className="noselect dropshadow"
             >
-              Here are your friend's drawings!
+              This round's results
             </div>
           </Col>
         </Row>
