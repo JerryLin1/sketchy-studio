@@ -87,7 +87,7 @@ export default class Lobby extends React.Component {
           Start game
         </Button>
         <div id="url">
-          <strong>Room Code:</strong>
+          <strong>Room Code: </strong>
           {this.roomURL}
         </div>
 
