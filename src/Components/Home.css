@@ -26,6 +26,15 @@
 }
 
 #join-room-btn {
+    position: relative;
+    margin-top: 0em;
+    height: 2.5em;
+    border-radius: 0.25em;
+    background: #2823BC;
+    border: none;
+    z-index: 1;
+    color: #fff;
+    
     font-size: 1.5em;
     width: 10em;
     font-weight: 1000;
