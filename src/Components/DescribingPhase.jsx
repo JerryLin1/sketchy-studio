@@ -38,7 +38,7 @@ export default class DescribingPhase extends React.Component {
                   "-2px -2px 0 #000, 0 -2px 0 #000, 2px -2px 0 #000, 2px 0 0 #000, 2px 2px 0 #000, 0 2px 0 #000, -2px 2px 0 #000, -2px 0 0 #000, 5px 0px 0 #000",
                 fontWeight: "1000",
                 textAlign: "center",
-                fontSize: "auto",
+                fontSize: "2em",
               }}
               className="noselect dropshadow"
             >
