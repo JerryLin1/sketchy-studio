@@ -31,12 +31,14 @@ export default class DrawingPhase extends React.Component {
         <div
           style={{
             color: "white",
-            textShadow: "black 0 0 3px",
+            textShadow: "-2px -2px 0 #000, 0 -2px 0 #000, 2px -2px 0 #000, 2px 0 0 #000, 2px 2px 0 #000, 0 2px 0 #000, -2px 2px 0 #000, -2px 0 0 #000, 5px 0px 0 #000",
+
             fontWeight: "1000",
             textAlign: "center",
 
             fontSize: "3em",
           }}
+          className="noselect dropshadow"
         >
           {this.state.gameState === "DESCRIBE" ? "Description" : "Drawing"}{" "}
           Phase!

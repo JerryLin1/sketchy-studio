@@ -44,7 +44,7 @@ export default class Home extends React.Component {
             : "Join room"}
         </button>
 
-        <div id="customization-header">Choose your nickname and avatar!</div>
+        <div id="customization-header" className="noselect">Choose your nickname and avatar!</div>
 
         <Form id="customization-form">
           <Row id="customization-row">

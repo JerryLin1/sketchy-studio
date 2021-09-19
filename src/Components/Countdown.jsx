@@ -27,7 +27,7 @@ export default class Countdown extends React.Component {
     const { before, after } = this.props;
 
     return (
-      <div className="countdown">
+      <div className="countdown noselect" style={{textShadow: "-2px -2px 0 #000, 0 -2px 0 #000, 2px -2px 0 #000, 2px 0 0 #000, 2px 2px 0 #000, 0 2px 0 #000, -2px 2px 0 #000, -2px 0 0 #000",}}>
         {before} {this.secondsLeft} seconds {after}
       </div>
     );
