@@ -1,6 +1,7 @@
 import React from "react";
 import Client from "../client";
 import Countdown from "./Countdown";
+import noDrawing from "../Assets/NoDrawing.png";
 
 import Paint from "./Paint";
 
@@ -41,7 +42,7 @@ export default class DescribingPhase extends React.Component {
 
         }}>Original Artist: {this.state.artist}</div>
         <Countdown time = {120} after = "left to describe the drawing!"/>
-        <img src={this.state.drawing} alt="OOPS" />
+        <img src={this.state.drawing === "NoDrawing" ? noDrawing : this.state.drawing} alt="OOPS" />
       </div>
     );
   }

@@ -75,7 +75,7 @@ export default class RoundResultsPhase extends React.Component {
             </div>
             <img
               src={this.state.drawings[this.state.currentDrawing].drawing}
-              alt="Drawing"
+              alt="No drawing submitted"
             />
           </Col>
           <Col style={{ textAlign: "center", margin: "auto" }}>
@@ -104,11 +104,11 @@ export default class RoundResultsPhase extends React.Component {
           <Button
             disabled={
               this.state.voted ||
-              !this.state.isHost ||
+              this.state.isDescriber ||
               this.state.currentDrawing === 0
             }
             onClick={() => {
-              this.socket.emit("voteFor", this.state.drawings.id);
+              this.socket.emit("voteFor", this.state.drawings[this.state.currentDrawing].id);
               this.setState({ voted: true });
             }}
             variant="outline-light"
@@ -117,44 +117,6 @@ export default class RoundResultsPhase extends React.Component {
           </Button>
         </div>
 
-        <Button disabled={this.state.voted || !this.state.isDescriber || this.state.currentDrawing === 0} onClick={
-          () => {
-            this.socket.emit("voteFor", this.state.drawings.id);
-            this.setState({ voted: true })
-          }}>Vote for this image</Button>
-
-
-        {/* Go prev button */}
-        <Button disabled={this.state.currentDrawing === 0} onClick={() => {
-          if (this.state.currentDrawing > 0) {
-            this.socket.emit("prevImage");
-          }
-        }}>
-
-          Prev drawing
-        </Button>
-
-        {/* Go next button */}
-        <Button onClick={() => {
-          if (this.state.currentDrawing < this.state.drawings.length - 1) {
-            this.socket.emit("nextImage");
-          } else {
-            // Go to next phase
-            this.socket.emit("nextRound");
-          }
-        }}>
-
-          {(this.state.currentDrawing < this.state.drawings.length - 1) ? "Next drawing" : "Next round"}
-        </Button>
-
-
-
-
-        {/* <div id="round-result-winner">
-          <h2 id="winner-prompt">The winner of this round is...</h2>
-          <h2 id="winner-name">{"Rosak"}!</h2>
-          <div>Player icon here</div>
-        </div> */}
       </div>
     );
   }

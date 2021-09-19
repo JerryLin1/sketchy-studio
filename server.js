@@ -43,13 +43,17 @@ io.on("connection", (socket) => {
   console.log(`${socket.id} has connected.`);
   socket.on("disconnect", () => {
     console.log(`${socket.id} has disconnected.`);
-    rooms[socket.room].clients[socket.id].nickname = rooms[socket.room].clients[socket.id].nickname + " (dc'd)";
-    rooms[socket.room].clients[socket.id].disconnected = true;
-    rooms[socket.room].disconnected ++;
+    if (socket.room in rooms) {
+      rooms[socket.room].clients[socket.id].nickname = rooms[socket.room].clients[socket.id].nickname + " (dc'd)";
+      rooms[socket.room].clients[socket.id].disconnected = true;
+      rooms[socket.room].disconnected ++;
+      if (rooms[socket.room].disconnected === numberOfClientsInRoom(socket.room)) {
+        delete rooms[socket.room];
+      }
+    } 
+    
 
-    if (rooms[socket.room].disconnected === numberOfClientsInRoom(socket.room)) {
-      delete rooms[socket.room];
-    }
+    
   });
 
   socket.on("createRoom", () => {
@@ -94,7 +98,7 @@ io.on("connection", (socket) => {
       rooms[socket.room].nextPhase = setTimeout(() => {
         assignDescribers();
         startDescribingPhase();
-      }, 120000);
+      }, 2000);
     }
   })
 
@@ -177,21 +181,31 @@ io.on("connection", (socket) => {
 
     let clientName = "";
     let max = 0;
-    for (let client of rooms[socket.room].clients) {
-      if (client.points > max) {
-        max = client.points;
-        clientName = client.nickname;
+    for (let client of Object.keys(rooms[socket.room].clients)) {
+      if (rooms[socket.room].clients[client].points > max) {
+        max = rooms[socket.room].clients[client].points;
+        clientName = rooms[socket.room].clients[client].nickname;
       }
     }
 
     rooms[socket.room].gameState = gameState.GAME_RESULTS;
-    io.to(socket.room).emit("receiveWinner", {points: max, name: client.nickname});
+    io.to(socket.room).emit("receiveWinner", {points: max, name: clientName});
 
   }
 
   function assignDescribers() {
     // Assign a random describer to an original drawing by another artist
-    let originalDrawings = Object.entries(rooms[socket.room].originalDrawings);
+    let missingArtists = Object.keys(rooms[socket.room].originalDrawings).concat(Object.keys(rooms[socket.room].clients));
+    missingArtists = missingArtists.filter((item,index)=>{
+      return (missingArtists.indexOf(item) == index)
+   })
+
+   for (let missingArtist of missingArtists) {
+     rooms[socket.room].originalDrawings[missingArtist] = "NoDrawing";
+   }
+
+   let originalDrawings = Object.entries(rooms[socket.room].originalDrawings);
+
     for (const [artist, drawing] of originalDrawings) {
       let clientIds = Object.keys(rooms[socket.room].clients);
       let randomClient = clientIds[getRandomInt(0, clientIds.length)];
