@@ -76,6 +76,7 @@ export default class GameResultsPhase extends React.Component {
                 hairNum: this.state.winnerAvatar.hairNum,
                 mouthNum: this.state.winnerAvatar.mouthNum,
                 shirtNum: this.state.winnerAvatar.shirtNum,
+                size: 2
               }: undefined}
             />
             </div>

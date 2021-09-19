@@ -95,7 +95,7 @@ io.on("connection", (socket) => {
       rooms[socket.room].nextPhase = setTimeout(() => {
         assignDescribers();
         startDescribingPhase();
-      }, 1000);
+      }, 120000);
     }
   })
 
@@ -157,7 +157,7 @@ io.on("connection", (socket) => {
     let artist = rooms[socket.room].clients[currentRoundInfo.originalArtist].nickname;
     io.to(currentRoundInfo.describer).emit("describer", { drawing: currentRoundInfo.originalDrawing, artist: artist });
     rooms[socket.room].gameState = gameState.DESCRIBE;
-    rooms[socket.room].nextPhase = setTimeout(() => { startRoundResultsPhase() }, 1000);
+    rooms[socket.room].nextPhase = setTimeout(() => { startRoundResultsPhase() }, 120000);
   }
 
   function startRoundResultsPhase() {
