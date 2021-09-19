@@ -170,6 +170,7 @@ io.on("connection", (socket) => {
 
     rooms[socket.room].gameState = gameState.ROUND_RESULTS;
     rooms[socket.room].currentRound++;
+
   }
 
   function startGameResultsPhase() {
@@ -190,7 +191,7 @@ io.on("connection", (socket) => {
     if (rooms[socket.room].disconnected === numberOfClientsInRoom(socket.room)) {
       delete rooms[socket.room];
     }
-    
+
   }
 
   function assignDescribers() {
