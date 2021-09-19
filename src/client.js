@@ -15,50 +15,48 @@ export default class Client extends React.Component {
     });
 
     this.socket.on("startDrawingPhase", () => {
-      this.redirectURL(this.roomId +"/drawing");
-
-    })
+      this.redirectURL(this.roomId + "/drawing");
+    });
 
     this.socket.on("startDescribingPhase", () => {
-      this.redirectURL(this.roomId +"/describing");
-
-    })
+      this.redirectURL(this.roomId + "/describing");
+    });
 
     this.socket.on("startRoundResultsPhase", () => {
-      this.redirectURL(this.roomId +"/round_results");
-
-    })
+      this.redirectURL(this.roomId + "/round_results");
+    });
 
     this.socket.on("startGameResultsPhase", () => {
-      this.redirectURL(this.roomId +"/game_results");
-
-    })
-    this.socket.on("draw", (src)=> {
-      let t = $.parseHTML(`<img src=${src}>`)[0]
+      this.redirectURL(this.roomId + "/game_results");
+    });
+    this.socket.on("draw", (src) => {
+      let t = $.parseHTML(`<img src=${src}>`)[0];
       // document.body.appendChild(t)
 
       // React would be
-      // this.setState({image: <img src={src}/>})    
-    })
-
-    this.state = {
-      clientsInRoom: {
-        // TODO: This should just be server.room.clients
-      },
+      // this.setState({image: <img src={src}/>})
+    });
+    this.clientsInRoom = {
+      // TODO: This should just be server.room.clients
     };
+    this.socket.on("updateClientList", (clients) => {
+      this.clientsInRoom = clients;
+    });
+
+    
   }
 
   pushURL = (id) => {
     this.props.match.history.push("/" + id);
-  }
+  };
 
   redirectURL = (id) => {
     this.props.match.history.replace("/" + id);
-  }
+  };
 
   createRoom = () => {
     this.socket.emit("createRoom");
-  }
+  };
 
   joinRoom = (roomId) => {
     // TODO: Add avatar and default nickname

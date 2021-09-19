@@ -149,6 +149,8 @@ function Canvas(props) {
     const { offsetX, offsetY } = nativeEvent;
     contextRef.current.beginPath();
     contextRef.current.moveTo(offsetX, offsetY);
+    contextRef.current.lineTo(offsetX, offsetY);
+    contextRef.current.stroke();
     setIsDrawing(true);
   };
 
