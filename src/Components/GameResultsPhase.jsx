@@ -7,10 +7,21 @@ export default class GameResultsPhase extends React.Component {
   constructor(props) {
     super(props);
     this.client = props.client;
+    this.socket = this.client.socket;
+
+    this.socket.on("receiveWinner", winner => {
+      this.setState({winner: winner.points});
+      this.setState({winner: winner.name});
+    });
+    
 
     this.state = {
       confetti: null,
+      winnerName: "palceholder",
+      winnerPoints: 0,
     };
+
+
 
     let count = 0;
     setInterval(() => {
@@ -49,8 +60,8 @@ export default class GameResultsPhase extends React.Component {
         </center>
         <div id="game-winner-container">
           <h2 className="winner-prompt visible">Your winner is...</h2>
-          <h2 className="winner-prompt invisible">With {"X"} points...</h2>
-          <h2 className="winner-prompt invisible">{"ROSAK!"}</h2>
+          <h2 className="winner-prompt invisible">With {this.state.winnerPoints} points...</h2>
+          <h2 className="winner-prompt invisible">{this.state.winnerName}!</h2>
         </div>
       </div>
     );

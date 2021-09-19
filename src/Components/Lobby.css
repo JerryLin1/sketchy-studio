@@ -2,7 +2,6 @@
   max-width: 100vw !important;
   min-height: 100vh;
   background: linear-gradient(#D22999, #6253D0);
-  padding-top: 2.5em;
 }
 
 #player-list {
@@ -46,8 +45,10 @@ h1 {
 
 #logo {
   position: absolute;
-  width: 450px;
+  width: 200px;
   height: auto;
+  top:0;
+  left: 2.5em;
 }
 
 #url {
@@ -57,4 +58,11 @@ h1 {
   color: white;
   font-weight: 1000;
   font-size: 1.25em;
+}
+
+#top-bar {
+    background-color: #2823BC ;
+    height: 125px;
+    padding: 2.5em 0 0 0 !important;
+    box-shadow: black 0 5px 15px;
 }

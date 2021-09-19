@@ -71,25 +71,30 @@ export default class Lobby extends React.Component {
   render() {
     return (
       <div className="lobby">
-        <img id="logo" src={logo} />
-        <Button
-          variant="outline-light"
-          onClick={() => {
-            this.socket.emit("startGame");
-          }}
-          style={{
-            position: "absolute",
-            left: "50%",
-            transform: "scale(1.75) translateX(-50%)",
-            verticalAlign: "text-top",
-          }}
-        >
-          Start game
-        </Button>
-        <div id="url">
-          <strong>Room Code: </strong>
-          {this.roomURL}
+        <div id="top-bar">
+          <img id="logo" src={logo} />
+          <Button
+            variant="outline-light"
+            onClick={() => {
+              this.socket.emit("startGame");
+            }}
+            style={{
+              position: "absolute",
+              left: "50%",
+              transform: "scale(1.75) translateX(-50%)",
+              verticalAlign: "text-top",
+            }}
+          >
+            Start game
+          </Button>
+          <div id="url">
+            <strong>Room Code: </strong>
+            {this.roomURL}
+          </div>
         </div>
+
+
+
 
         <div>
           <div id="player-list">
