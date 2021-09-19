@@ -172,6 +172,9 @@
 }
 
 #game-winner-container {
+    display: flex;
+    justify-content: center;
+  align-items: center;
     margin: auto;
     width: 75%;
     height: 25em;
@@ -180,7 +183,6 @@
 }
 
 #game-winner-container>h2 {
-    padding-top: 6.25em;
     text-align: center;
 }
 
