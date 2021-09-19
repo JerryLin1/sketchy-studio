@@ -14,7 +14,7 @@ function Canvas(props) {
 
     var paintedLines = [];
     var paintedLinesHistory = [[...paintedLines]];
-    window.color = "rgb(0,0,0)";
+    var color = useRef("rgb(255,0,0)");
     //   var [color, setColor] = useState("rgb(255,0,0)");
 
     const canvasRef = useRef(null);
@@ -43,7 +43,7 @@ function Canvas(props) {
                 <div
                     onClick={() => {
                         // setColor(c);
-                        window.color = c;
+                        color.current = c;
                     }}
                     onMouseOver={(e) => {
                         e.target.style.border = "solid 2px white";
@@ -80,7 +80,7 @@ function Canvas(props) {
         $([canvas]).mousedown(function (event) {
             switch (event.which) {
                 case 1:
-                    context.strokeStyle = window.color;
+                    context.strokeStyle = color.current;
                     context.lineWidth = swSliderRef.current.value;
                     break;
                 case 3:
