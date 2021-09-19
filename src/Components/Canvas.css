@@ -11,6 +11,7 @@ canvas {
 }
 
 #colour-header {
+    margin: inherit;
     font-size: 1.5em;
     color:white;
     font-weight: 1000;
@@ -18,7 +19,6 @@ canvas {
 }
 
 #submit-btn {
-    margin-left: 1em;
     font-size: 1.25em;
 }
 

@@ -193,7 +193,7 @@ function Canvas(props) {
         <Col id="canvas-settings">
           <Row>
             <div id="colour-header">Colour Picker:</div>
-            {colorBtnsGrid}
+            <div style={{ margin: "inherit" }}>{colorBtnsGrid}</div>
           </Row>
           <br />
           <Row style={{ width: "15em" }}>
@@ -209,7 +209,7 @@ function Canvas(props) {
           </Row>
           <br />
           <br />
-          <Row style={{ width: "25em" }}>
+          <Row style={{ width: "15em" }}>
             <Button
               id="submit-btn"
               variant="outline-light"
