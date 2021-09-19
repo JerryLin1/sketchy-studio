@@ -166,9 +166,18 @@ io.on("connection", (socket) => {
   function startGameResultsPhase() {
     io.to(socket.room).emit("startGameResultsPhase");
     console.log("HERE");
-    rooms[socket.room].gameState = gameState.GAME_RESULTS;
 
-    // TODO: handle exit
+    let clientName = "";
+    let max = 0;
+    for (let client of rooms[socket.room].clients) {
+      if (client.points > max) {
+        max = client.points;
+        clientName = client.nickname;
+      }
+    }
+
+    rooms[socket.room].gameState = gameState.GAME_RESULTS;
+    io.to(socket.room).emit("receiveWinner", {points: max, name: client.nickname});
 
   }
 

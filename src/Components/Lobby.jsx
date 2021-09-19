@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Button } from "react-bootstrap";
+import { Row, Button, Col } from "react-bootstrap";
 import ConditionalWrapper from "./ConditionalWrapper.jsx";
 import "./Lobby.css";
 
@@ -27,7 +27,7 @@ export default class Lobby extends React.Component {
 
       this.setState({
         lobbyList: (
-          <div style={{ display: "flex", flexWrap: "wrap" ,justifyContent: "center"}}>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
             {Object.values(clients).map((client, key) => {
               return (
                 <div key={key} className="lobby-list-item">
@@ -71,29 +71,47 @@ export default class Lobby extends React.Component {
   render() {
     return (
       <div className="lobby">
-        <img id="logo" src={logo} />
-        <Button
-          variant="outline-light"
-          onClick={() => {
-            this.socket.emit("startGame");
-          }}
-          style={{
-            position: "absolute",
-            left: "50%",
-            transform: "scale(1.75) translateX(-50%)",
-            verticalAlign: "text-top",
-          }}
-        >
-          Start game
-        </Button>
-        <div id="url">
-          <strong>Room Code: </strong>
-          {this.roomURL}
-        </div>
+        <Row id="top-bar">
+          <Col xs = {4}>
+            <img id="logo" src={logo} />
+          </Col>
+          <Col xs = {4}>
+            <Button
+              variant="outline-light"
+              onClick={() => {
+                this.socket.emit("startGame");
+              }}
+              style={{
+                margin: "0 auto",
+                display: "block",
+          
+
+                transform: "scale(1.75)"
+   
+              }}
+            >
+              Start game
+            </Button>
+          </Col>
+
+          <Col xs = {4}>
+            <div id="url">
+              <strong className="noselect">Room Code: </strong>
+              {this.roomURL}
+            </div>
+          </Col>
+
+
+
+
+        </Row>
+
+
+
 
         <div>
-          <div id="player-list" style={{marginTop: "3em"}}>
-            <h1 style={{ fontWeight: 700, marginTop: "0em",  }}>Players</h1>
+          <div id="player-list" style={{ marginTop: "3em" }}>
+            <h1 style={{ fontWeight: 700, marginTop: "0em", }} className="noselect">Players</h1>
             {this.state.lobbyList}
           </div>
         </div>
