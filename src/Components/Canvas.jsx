@@ -84,7 +84,7 @@ function Canvas(props) {
   //   }
   for (let c of colors) {
     colorBtns.push(
-      <div
+      <span
         onClick={() => {
           // setColor(c);
           color.current = c;
@@ -179,7 +179,7 @@ function Canvas(props) {
 
   return (
     <div>
-      <Row>
+      <Row style={{ maxWidth: "100vw" }}>
         <Col>
           <canvas
             onMouseDown={startDrawing}
@@ -198,7 +198,7 @@ function Canvas(props) {
             max="66"
             step="4"
             class="slider"
-            defaultValue="6"
+            defaultValue="4"
           />
 
           <Button id="submit-btn" disabled={!enabled} ref={submitRef}>

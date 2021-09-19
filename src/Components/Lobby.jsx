@@ -37,7 +37,10 @@ export default class Lobby extends React.Component {
               >
                 {client.nickname}
                 {client.isHost && (
-                  <span style={{ color: "#b59700" }}> <strong>HOST</strong></span>
+                  <span style={{ color: "#b59700" }}>
+                    {" "}
+                    <strong>HOST</strong>
+                  </span>
                 )}
               </ConditionalWrapper>
               <div id="player-list-avatar-display">
@@ -62,25 +65,31 @@ export default class Lobby extends React.Component {
   render() {
     return (
       <div className="lobby">
-        <img id="logo" src={logo} style={{ transform: "scale(0.75)" }} />
-        <div>
-          <center>
-            <Button
-              variant="outline-light"
-              onClick={() => {
-                this.socket.emit("startGame");
-              }}
-              style={{ transform: "scale(1.75)" }}
-            >
-              Start game
-            </Button>
-          </center>
+        <img id="logo" src={logo} />
+        <Button
+          variant="outline-light"
+          onClick={() => {
+            this.socket.emit("startGame");
+          }}
+          style={{
+            position: "absolute",
+            left: "50%",
+            transform: "scale(1.75) translateX(-50%)",
+            verticalAlign: "text-top",
+          }}
+        >
+          Start game
+        </Button>
+        <div id="url">
+          <u>
+            <strong>Room Code:</strong>
+          </u>{" "}
+          {this.roomURL}
         </div>
-        <div id="url">{this.roomURL}</div>
 
         <div>
           <div id="player-list">
-            <h1 style={{ fontWeight: 700 }}>Players</h1>
+            <h1 style={{ fontWeight: 700, marginTop: "1em" }}>Players</h1>
             {this.state.lobbyList}
           </div>
         </div>
