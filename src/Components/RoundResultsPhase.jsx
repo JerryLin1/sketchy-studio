@@ -74,7 +74,7 @@ export default class RoundResultsPhase extends React.Component {
         <Row>
           <Col style={{ textAlign: "center", margin: "auto" }}>
             <Button
-              disabled={this.state.currentDrawing === 0}
+              disabled={this.state.currentDrawing === 0 || this.state.isDescriber}
               onClick={() => {
                 if (this.state.currentDrawing > 0) {
                   this.socket.emit("prevImage");
@@ -86,6 +86,7 @@ export default class RoundResultsPhase extends React.Component {
             </Button>
           </Col>
           <Col style={{ textAlign: "center", margin: "auto" }}>
+
             <div id="drawing-container">
               <div id="artist-name">
                 Here's {this.state.drawings[this.state.currentDrawing].name}'s
@@ -99,6 +100,7 @@ export default class RoundResultsPhase extends React.Component {
           </Col>
           <Col style={{ textAlign: "center", margin: "auto" }}>
             <Button
+              disabled={this.state.isDescriber}
               onClick={() => {
                 if (
                   this.state.currentDrawing <

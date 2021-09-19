@@ -47,9 +47,6 @@ io.on("connection", (socket) => {
       rooms[socket.room].clients[socket.id].nickname = rooms[socket.room].clients[socket.id].nickname + " (dc'd)";
       rooms[socket.room].clients[socket.id].disconnected = true;
       rooms[socket.room].disconnected ++;
-      if (rooms[socket.room].disconnected === numberOfClientsInRoom(socket.room)) {
-        delete rooms[socket.room];
-      }
     } 
     
 
@@ -190,7 +187,10 @@ io.on("connection", (socket) => {
 
     rooms[socket.room].gameState = gameState.GAME_RESULTS;
     io.to(socket.room).emit("receiveWinner", {points: max, name: clientName});
-
+    if (rooms[socket.room].disconnected === numberOfClientsInRoom(socket.room)) {
+      delete rooms[socket.room];
+    }
+    
   }
 
   function assignDescribers() {
