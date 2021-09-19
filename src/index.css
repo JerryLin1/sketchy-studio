@@ -32,6 +32,7 @@
     background-image: url('./Assets/rays.png'),linear-gradient(#D22999, #6253D0);
     min-height: 100vh;
     width: 100%;
+
     background-attachment: fixed;
     background-position: center center;
     background-repeat: no-repeat;
@@ -62,18 +63,6 @@
 
 .home:first-child {
     text-align: center;
-}
-
-#join-room-btn {
-    position: relative;
-    margin-top: 2.5em;
-    width: 15em;
-    height: 2.5em;
-    border-radius: 0.25em;
-    background: #2823BC;
-    border: none;
-    z-index: 1;
-    color: #fff;
 }
 
 #join-room-btn:after {
