@@ -10,8 +10,8 @@ export default class GameResultsPhase extends React.Component {
     this.socket = this.client.socket;
 
     this.socket.on("receiveWinner", winner => {
-      this.setState({winner: winner.points});
-      this.setState({winner: winner.name});
+      this.setState({winnerPoints: winner.points});
+      this.setState({winnerName: winner.name});
     });
     
 

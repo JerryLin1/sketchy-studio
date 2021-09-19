@@ -157,7 +157,7 @@ io.on("connection", (socket) => {
     }
     io.to(socket.room).emit("startRoundResultsPhase");
     io.to(socket.room).emit("receiveDrawings", rooms[socket.room].rounds[rooms[socket.room].currentRound].copies);
-    io.to(socket.id).emit("receiveIsHost", rooms[socket.room].clients[socket.id].isHost);
+    io.to(socket.id).emit("receiveIsDescriber", rooms[socket.room].rounds[rooms[socket.room].currentRound].describer);
 
     rooms[socket.room].gameState = gameState.ROUND_RESULTS;
     rooms[socket.room].currentRound++;

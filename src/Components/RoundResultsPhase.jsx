@@ -25,16 +25,27 @@ export default class RoundResultsPhase extends React.Component {
       ],
       currentDrawing: 0,
       voted: false,
+<<<<<<< HEAD
       isHost: false,
     };
+=======
+      isDescriber: false
+    }
+>>>>>>> 894738b2f2bdd8931b1c90477bec8648bee8c41b
 
     this.socket.on("receiveDrawings", (drawings) => {
       this.setState({ drawings: drawings });
     });
 
+<<<<<<< HEAD
     this.socket.on("receiveIsHost", (isHost) => {
       this.setState({ isHost: isHost });
     });
+=======
+    this.socket.on("receiveIsDescriber", isDescriber => {
+      this.setState({ isDescriber: isDescriber });
+    })
+>>>>>>> 894738b2f2bdd8931b1c90477bec8648bee8c41b
 
     this.socket.on("goNext", () => {
       this.setState({ currentDrawing: this.state.currentDrawing + 1 });
@@ -117,16 +128,44 @@ export default class RoundResultsPhase extends React.Component {
           </Button>
         </div>
 
-        <AvatarDisplay
-          avatar={{
-            bodyNum: this.state.drawings[this.state.currentDrawing].bodyNum,
-            eyesNum: this.state.drawings[this.state.currentDrawing].eyesNum,
-            hairNum: this.state.drawings[this.state.currentDrawing].hairNum,
-            mouthNum: this.state.drawings[this.state.currentDrawing].mouthNum,
-            shirtNum: this.state.drawings[this.state.currentDrawing].shirtNum,
-          }}
-          size={0.75}
-        />
+        <Button disabled={this.state.voted || !this.state.isDescriber || this.state.currentDrawing === 0} onClick={
+          () => {
+            this.socket.emit("voteFor", this.state.drawings.id);
+            this.setState({ voted: true })
+          }}>Vote for this image</Button>
+
+
+        {/* Go prev button */}
+        <Button disabled={this.state.currentDrawing === 0} onClick={() => {
+          if (this.state.currentDrawing > 0) {
+            this.socket.emit("prevImage");
+          }
+        }}>
+
+          Prev drawing
+        </Button>
+
+        {/* Go next button */}
+        <Button onClick={() => {
+          if (this.state.currentDrawing < this.state.drawings.length - 1) {
+            this.socket.emit("nextImage");
+          } else {
+            // Go to next phase
+            this.socket.emit("nextRound");
+          }
+        }}>
+
+          {(this.state.currentDrawing < this.state.drawings.length - 1) ? "Next drawing" : "Next round"}
+        </Button>
+
+
+
+
+        {/* <div id="round-result-winner">
+          <h2 id="winner-prompt">The winner of this round is...</h2>
+          <h2 id="winner-name">{"Rosak"}!</h2>
+          <div>Player icon here</div>
+        </div> */}
       </div>
     );
   }

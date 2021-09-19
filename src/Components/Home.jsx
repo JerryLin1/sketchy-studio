@@ -29,21 +29,7 @@ export default class Home extends React.Component {
           }}
         />
 
-        <button
-          id="join-room-btn"
-          onClick={() => {
-            window.location.pathname.substring(1) === ""
-              ? this.client.createRoom()
-              : this.client.redirectURL(
-                  `${window.location.pathname.substring(1)}/lobby`
-                );
-          }}
-        >
-          {window.location.pathname.substring(1) === ""
-            ? "Create room"
-            : "Join room"}
-        </button>
-
+        
         <div id="customization-header" className="noselect">Choose your nickname and avatar!</div>
 
         <Form id="customization-form">
@@ -62,10 +48,26 @@ export default class Home extends React.Component {
             </Col>
           </Row>
         </Form>
+        
 
         <div>
           <AvatarCustomizer />
         </div>
+        <button
+          id="join-room-btn"
+          onClick={() => {
+            window.location.pathname.substring(1) === ""
+              ? this.client.createRoom()
+              : this.client.redirectURL(
+                  `${window.location.pathname.substring(1)}/lobby`
+                );
+          }}
+        >
+          {window.location.pathname.substring(1) === ""
+            ? "Create room"
+            : "Join room"}
+        </button>
+
       </div>
     );
   }
