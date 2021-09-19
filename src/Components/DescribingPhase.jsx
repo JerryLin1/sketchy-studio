@@ -2,6 +2,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Client from "../client";
 import Countdown from "./Countdown";
+import noDrawing from "../Assets/NoDrawing.png";
 
 import logo from "../Assets/Logo.png";
 
@@ -45,6 +46,7 @@ export default class DescribingPhase extends React.Component {
             </div>
           </Col>
         </Row>
+
         <div
           style={{
             color: "white",
@@ -57,7 +59,12 @@ export default class DescribingPhase extends React.Component {
           Original Artist: {this.state.artist}
         </div>
         <Countdown time={120} after="left to describe the drawing!" />
-        <img src={this.state.drawing} alt="OOPS" />
+        <img
+          src={
+            this.state.drawing === "NoDrawing" ? noDrawing : this.state.drawing
+          }
+          alt="OOPS"
+        />
       </div>
     );
   }

@@ -82,7 +82,7 @@ export default class RoundResultsPhase extends React.Component {
             </div>
             <img
               src={this.state.drawings[this.state.currentDrawing].drawing}
-              alt="Drawing"
+              alt="No drawing submitted"
             />
           </Col>
           <Col style={{ textAlign: "center", margin: "auto" }}>
@@ -111,11 +111,11 @@ export default class RoundResultsPhase extends React.Component {
           <Button
             disabled={
               this.state.voted ||
-              !this.state.isHost ||
+              this.state.isDescriber ||
               this.state.currentDrawing === 0
             }
             onClick={() => {
-              this.socket.emit("voteFor", this.state.drawings.id);
+              this.socket.emit("voteFor", this.state.drawings[this.state.currentDrawing].id);
               this.setState({ voted: true });
             }}
             variant="outline-light"
