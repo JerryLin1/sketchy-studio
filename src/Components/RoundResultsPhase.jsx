@@ -20,15 +20,15 @@ export default class RoundResultsPhase extends React.Component {
       }],
       currentDrawing: 0,
       voted: false,
-      isHost: false
+      isDescriber: false
     }
 
     this.socket.on("receiveDrawings", drawings => {
       this.setState({ drawings: drawings });
     })
 
-    this.socket.on("receiveIsHost", isHost => {
-      this.setState({ isHost: isHost });
+    this.socket.on("receiveIsDescriber", isDescriber => {
+      this.setState({ isDescriber: isDescriber });
     })
 
     this.socket.on("goNext", () => {
@@ -64,7 +64,7 @@ export default class RoundResultsPhase extends React.Component {
 
         </div>
 
-        <Button disabled={this.state.voted || !this.state.isHost || this.state.currentDrawing === 0} onClick={
+        <Button disabled={this.state.voted || !this.state.isDescriber || this.state.currentDrawing === 0} onClick={
           () => {
             this.socket.emit("voteFor", this.state.drawings.id);
             this.setState({ voted: true })
