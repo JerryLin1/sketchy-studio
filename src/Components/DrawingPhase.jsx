@@ -56,20 +56,6 @@ export default class DrawingPhase extends React.Component {
             client: this.client,
           }}
         />
-        <div style={{ border: "4px black solid", display: "inline-block" }}>
-          <AvatarDisplay
-            flipped={true}
-            avatar={{
-              bodyNum: this.client.clientsInRoom[this.socket.id].avatar.bodyNum,
-              eyesNum: this.client.clientsInRoom[this.socket.id].avatar.eyesNum,
-              hairNum: this.client.clientsInRoom[this.socket.id].avatar.hairNum,
-              mouthNum:
-                this.client.clientsInRoom[this.socket.id].avatar.mouthNum,
-              shirtNum:
-                this.client.clientsInRoom[this.socket.id].avatar.shirtNum,
-            }}
-          />
-        </div>
       </div>
     );
   }

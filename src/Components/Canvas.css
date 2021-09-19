@@ -21,3 +21,7 @@ canvas {
     margin-left: 1em;
     font-size: 1.25em;
 }
+
+.row {
+    max-width: 100vw;
+}

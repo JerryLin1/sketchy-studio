@@ -50,7 +50,7 @@ export default class Home extends React.Component {
           <Row id="customization-row">
             <Col xs="auto">
               <Form.Control
-                placeholder={localStorage.getItem("nickname")}
+                placeholder={"Nickname"}
                 id="input-nick"
                 autoComplete="off"
                 maxLength="12"
