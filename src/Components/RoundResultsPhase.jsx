@@ -74,7 +74,7 @@ export default class RoundResultsPhase extends React.Component {
         <Row>
           <Col style={{ textAlign: "center", margin: "auto" }}>
             <Button
-              disabled={this.state.currentDrawing === 0 || this.state.isDescriber}
+              disabled={this.state.currentDrawing === 0 || !this.state.isDescriber}
               onClick={() => {
                 if (this.state.currentDrawing > 0) {
                   this.socket.emit("prevImage");
@@ -100,7 +100,7 @@ export default class RoundResultsPhase extends React.Component {
           </Col>
           <Col style={{ textAlign: "center", margin: "auto" }}>
             <Button
-              disabled={this.state.isDescriber}
+              disabled={!this.state.isDescriber}
               onClick={() => {
                 if (
                   this.state.currentDrawing <
@@ -125,7 +125,7 @@ export default class RoundResultsPhase extends React.Component {
           <Button
             disabled={
               this.state.voted ||
-              this.state.isDescriber ||
+              !this.state.isDescriber ||
               this.state.currentDrawing === 0
             }
             onClick={() => {

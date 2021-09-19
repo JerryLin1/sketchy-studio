@@ -166,7 +166,7 @@ io.on("connection", (socket) => {
     }
     io.to(socket.room).emit("startRoundResultsPhase");
     io.to(socket.room).emit("receiveDrawings", rooms[socket.room].rounds[rooms[socket.room].currentRound].copies);
-    io.to(socket.id).emit("receiveIsDescriber", rooms[socket.room].rounds[rooms[socket.room].currentRound].describer);
+    io.to(rooms[socket.room].rounds[rooms[socket.room].currentRound].describer).emit("receiveIsDescriber", true);
 
     rooms[socket.room].gameState = gameState.ROUND_RESULTS;
     rooms[socket.room].currentRound++;
@@ -203,7 +203,6 @@ io.on("connection", (socket) => {
       }
     }
 
-    console.log(missingArtists);
 
     for (let missingArtist of missingArtists) {
       rooms[socket.room].originalDrawings[missingArtist] = "NoDrawing";
