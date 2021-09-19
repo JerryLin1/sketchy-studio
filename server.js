@@ -43,6 +43,13 @@ io.on("connection", (socket) => {
   console.log(`${socket.id} has connected.`);
   socket.on("disconnect", () => {
     console.log(`${socket.id} has disconnected.`);
+    rooms[socket.room].clients[socket.id].nickname = rooms[socket.room].clients[socket.id].nickname + " (dc'd)";
+    rooms[socket.room].clients[socket.id].disconnected = true;
+    rooms[socket.room].disconnected ++;
+
+    if (rooms[socket.room].disconnected === numberOfClientsInRoom(socket.room)) {
+      delete rooms[socket.room];
+    }
   });
 
   socket.on("createRoom", () => {
@@ -93,8 +100,9 @@ io.on("connection", (socket) => {
 
   socket.on("finishedDrawing", () => {
     rooms[socket.room].finishedDrawing++;
-    if (rooms[socket.room].finishedDrawing === numberOfClientsInRoom(socket.room)
-      || rooms[socket.room].gameState === gameState.DESCRIBE && rooms[socket.room].finishedDrawing === numberOfClientsInRoom(socket.room) - 1) {
+    let disconnected = rooms[socket.room].disconnected;
+    if (rooms[socket.room].finishedDrawing === numberOfClientsInRoom(socket.room) - disconnected
+      || rooms[socket.room].gameState === gameState.DESCRIBE && rooms[socket.room].finishedDrawing === numberOfClientsInRoom(socket.room) - 1 - disconnected) {
       clearTimeout(rooms[socket.room].nextPhase);
       console.log("finished");
       rooms[socket.room].finishedDrawing = 0;
