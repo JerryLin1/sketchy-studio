@@ -95,7 +95,7 @@ io.on("connection", (socket) => {
       rooms[socket.room].nextPhase = setTimeout(() => {
         assignDescribers();
         startDescribingPhase();
-      }, 2000);
+      }, 120000);
     }
   })
 
