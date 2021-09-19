@@ -55,7 +55,19 @@ export default class RoundResultsPhase extends React.Component {
             <img id="logo" src={logo} />
           </Col>
           <Col xs={4}>
-            Drawing Phase!
+            <div
+              style={{
+                color: "white",
+                textShadow:
+                  "-2px -2px 0 #000, 0 -2px 0 #000, 2px -2px 0 #000, 2px 0 0 #000, 2px 2px 0 #000, 0 2px 0 #000, -2px 2px 0 #000, -2px 0 0 #000, 5px 0px 0 #000",
+                fontWeight: "1000",
+                textAlign: "center",
+                fontSize: "3em",
+              }}
+              className="noselect dropshadow"
+            >
+              Here are your friend's drawings!
+            </div>
           </Col>
         </Row>
 
@@ -115,7 +127,10 @@ export default class RoundResultsPhase extends React.Component {
               this.state.currentDrawing === 0
             }
             onClick={() => {
-              this.socket.emit("voteFor", this.state.drawings[this.state.currentDrawing].id);
+              this.socket.emit(
+                "voteFor",
+                this.state.drawings[this.state.currentDrawing].id
+              );
               this.setState({ voted: true });
             }}
             variant="outline-light"
