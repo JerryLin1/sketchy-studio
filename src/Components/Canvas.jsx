@@ -183,7 +183,7 @@ function Canvas(props) {
     <div>
       <Row>
         <Col xs={{offset: 2}}>
-          <canvas
+          <canvas className="paint"
             onMouseDown={startDrawing}
             onMouseUp={finishDrawing}
             onMouseMove={draw}
