@@ -95,7 +95,7 @@ io.on("connection", (socket) => {
       rooms[socket.room].nextPhase = setTimeout(() => {
         assignDescribers();
         startDescribingPhase();
-      }, 120000);
+      }, 1000);
     }
   })
 
@@ -157,7 +157,7 @@ io.on("connection", (socket) => {
     let artist = rooms[socket.room].clients[currentRoundInfo.originalArtist].nickname;
     io.to(currentRoundInfo.describer).emit("describer", { drawing: currentRoundInfo.originalDrawing, artist: artist });
     rooms[socket.room].gameState = gameState.DESCRIBE;
-    rooms[socket.room].nextPhase = setTimeout(() => { startRoundResultsPhase() }, 120000);
+    rooms[socket.room].nextPhase = setTimeout(() => { startRoundResultsPhase() }, 1000);
   }
 
   function startRoundResultsPhase() {
@@ -177,17 +177,19 @@ io.on("connection", (socket) => {
     io.to(socket.room).emit("startGameResultsPhase");
     console.log("HERE");
 
+    let avatar = {};
     let clientName = "";
-    let max = 0;
+    let max = -1;
     for (let client of Object.keys(rooms[socket.room].clients)) {
       if (rooms[socket.room].clients[client].points > max) {
         max = rooms[socket.room].clients[client].points;
         clientName = rooms[socket.room].clients[client].nickname;
+        avatar = rooms[socket.room].clients[client].avatar;
       }
     }
 
     rooms[socket.room].gameState = gameState.GAME_RESULTS;
-    io.to(socket.room).emit("receiveWinner", { points: max, name: clientName });
+    io.to(socket.room).emit("receiveWinner", { points: max, name: clientName, avatar:avatar });
     if (rooms[socket.room].disconnected === numberOfClientsInRoom(socket.room)) {
       delete rooms[socket.room];
     }

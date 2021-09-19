@@ -2,6 +2,7 @@ import React from "react";
 
 import $ from "jquery";
 import Confetti from "react-confetti";
+import AvatarDisplay from "./Avatar/AvatarDisplay";
 
 export default class GameResultsPhase extends React.Component {
   constructor(props) {
@@ -9,11 +10,11 @@ export default class GameResultsPhase extends React.Component {
     this.client = props.client;
     this.socket = this.client.socket;
 
-    this.socket.on("receiveWinner", winner => {
-      this.setState({winnerPoints: winner.points});
-      this.setState({winnerName: winner.name});
+    this.socket.on("receiveWinner", (winner) => {
+      this.setState({ winnerPoints: winner.points });
+      this.setState({ winnerName: winner.name });
+      this.setState({ winnerAvatar: winner.avatar });
       console.log(winner);
-      
     });
 
     setInterval(() => {
@@ -38,8 +39,7 @@ export default class GameResultsPhase extends React.Component {
           });
         }
       }
-    }, 2500);
-    
+    }, 1500);
 
     this.state = {
       confetti: null,
@@ -47,10 +47,7 @@ export default class GameResultsPhase extends React.Component {
       winnerPoints: 0,
     };
 
-
-
     let count = 0;
-    
   }
 
   render() {
@@ -64,8 +61,25 @@ export default class GameResultsPhase extends React.Component {
         </center>
         <div id="game-winner-container">
           <h2 className="winner-prompt visible">Your winner is...</h2>
-          <h2 className="winner-prompt invisible">With {this.state.winnerPoints} point{this.state.winnerPoints === 1 ? "" : "s"}...</h2>
-          <h2 className="winner-prompt invisible">{this.state.winnerName}!</h2>
+          <h2 className="winner-prompt invisible">
+            With {this.state.winnerPoints} point
+            {this.state.winnerPoints === 1 ? "" : "s"}...
+          </h2>
+          <h2 className="winner-prompt invisible">
+            {this.state.winnerName}!
+            <br/>
+            <div style={{border: "solid 4px black", backgroundColor: "tomato", display: "inline-block"}}> 
+            <AvatarDisplay 
+              avatar={this.state.winnerAvatar!=undefined?{
+                bodyNum: this.state.winnerAvatar.bodyNum,
+                eyesNum: this.state.winnerAvatar.eyesNum,
+                hairNum: this.state.winnerAvatar.hairNum,
+                mouthNum: this.state.winnerAvatar.mouthNum,
+                shirtNum: this.state.winnerAvatar.shirtNum,
+              }: undefined}
+            />
+            </div>
+          </h2>
         </div>
       </div>
     );
