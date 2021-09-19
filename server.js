@@ -63,11 +63,17 @@ io.on("connection", (socket) => {
   })
 
   socket.on("draw", (paintedLines) => {
+    let currentRound = rooms[socket.room].currentRound;
     if (rooms[socket.room].gameState === gameState.DRAWING) {
       rooms[socket.room].originalDrawings[socket.id] = paintedLines;
     }
     else if (rooms[socket.room].gameState === gameState.DESCRIBE) {
-      // rooms[socket.roomId].originalDrawings[socket.id] = paintedLines;
+      rooms[socket.room].rounds[currentRound].copies.push({
+        name: rooms[socket.room].clients[socket.id].nickname,
+        id: socket.id,
+        drawing: paintedLines,
+        avatar: rooms[socket.room].clients[socket.id].avatar
+      });
     }
     io.emit("draw", paintedLines)
   });
@@ -77,18 +83,20 @@ io.on("connection", (socket) => {
       rooms[socket.room].gameState = gameState.DRAWING;
 
       io.to(socket.room).emit("startDrawingPhase");
-      
+
       rooms[socket.room].nextPhase = setTimeout(() => {
         assignDescribers();
         startDescribingPhase();
-      }, 90000);
+      }, 120000);
     }
   })
 
   socket.on("finishedDrawing", () => {
-    rooms[socket.room].finishedDrawing ++;
-    if (rooms[socket.room].finishedDrawing === numberOfClientsInRoom(socket.room)) {
+    rooms[socket.room].finishedDrawing++;
+    if (rooms[socket.room].finishedDrawing === numberOfClientsInRoom(socket.room)
+      || rooms[socket.room].gameState === gameState.DESCRIBE && rooms[socket.room].finishedDrawing === numberOfClientsInRoom(socket.room) - 1) {
       clearTimeout(rooms[socket.room].nextPhase);
+      console.log("finished");
       rooms[socket.room].finishedDrawing = 0;
 
       if (rooms[socket.room].gameState === gameState.DRAWING) {
@@ -96,44 +104,68 @@ io.on("connection", (socket) => {
           assignDescribers();
         }
         startDescribingPhase();
-        
+
       } else if (rooms[socket.room].gameState === gameState.DESCRIBE) {
-        startRoundResultPhase();
+        startRoundResultsPhase();
       }
     }
   })
 
   socket.on("nextRound", () => {
-    if (rooms[socket.room].currentRound < rooms[socket.room].rounds.length) {
+    if (rooms[socket.room].currentRound === rooms[socket.room].rounds.length) {
+      console.log("game results")
+      startGameResultsPhase();
+    } else if (rooms[socket.room].currentRound < rooms[socket.room].rounds.length) {
       startDescribingPhase();
-      clearTimeout(rooms[socket.room].nextPhase);
+
+
     }
   })
 
   function startDescribingPhase() {
+    if (rooms[socket.room].nextPhase !== undefined) {
+      clearTimeout(rooms[socket.room].nextPhase);
+    }
+    io.to(socket.room).emit("startDrawingPhase");
     io.to(socket.room).emit("newState", "DESCRIBE");
     io.to(socket.room).emit("resetCanvas");
-    // TODO: Wipe drawing phase info idk
+
 
     let currentRound = rooms[socket.room].currentRound;
     let currentRoundInfo = rooms[socket.room].rounds[currentRound];
-    console.dir(currentRoundInfo, { depth: null });
+
+    rooms[socket.room].rounds[currentRound].copies.push(
+      {
+        name: rooms[socket.room].clients[currentRoundInfo.originalArtist].nickname + "(The original artist!)",
+        id: socket.id,
+        drawing: currentRoundInfo.originalDrawing,
+        avatar: rooms[socket.room].clients[currentRoundInfo.originalArtist].avatar
+      }
+    )
 
 
     io.to(currentRoundInfo.describer).emit("startDescribingPhase");
-    io.to(currentRoundInfo.describer).emit("describer", {drawing: currentRoundInfo.originalDrawing, artist: currentRoundInfo.originalArtist});
+    let artist = rooms[socket.room].clients[currentRoundInfo.originalArtist].nickname;
+    io.to(currentRoundInfo.describer).emit("describer", { drawing: currentRoundInfo.originalDrawing, artist: artist });
     rooms[socket.room].gameState = gameState.DESCRIBE;
-    rooms[socket.room].nextPhase = setTimeout(() => { startRoundResultPhase() }, 120000);
+    rooms[socket.room].nextPhase = setTimeout(() => { startRoundResultsPhase() }, 10000);
   }
 
-  function startRoundResultPhase() {
-    io.to(socket.room).emit("startRoundResultPhase");
+  function startRoundResultsPhase() {
+    if (rooms[socket.room].nextPhase !== undefined) {
+      clearTimeout(rooms[socket.room].nextPhase);
+    }
+    io.to(socket.room).emit("startRoundResultsPhase");
+    io.to(socket.room).emit("receiveDrawings", rooms[socket.room].rounds[rooms[socket.room].currentRound].copies);
+    io.to(socket.id).emit("receiveIsHost", rooms[socket.room].clients[socket.id].isHost);
+
     rooms[socket.room].gameState = gameState.ROUND_RESULTS;
     rooms[socket.room].currentRound++;
   }
 
-  function startGameResultPhase() {
-    io.to(socket.room).emit("startGameResultPhase");
+  function startGameResultsPhase() {
+    io.to(socket.room).emit("startGameResultsPhase");
+    console.log("HERE");
     rooms[socket.room].gameState = gameState.GAME_RESULTS;
 
     // TODO: handle exit
@@ -153,6 +185,18 @@ io.on("connection", (socket) => {
       rooms[socket.room].rounds.push(new Round(drawing, artist, randomClient));
     }
   }
+
+  socket.on("nextImage", () => {
+    io.to(socket.room).emit("goNext");
+  })
+
+  socket.on("prevImage", () => {
+    io.to(socket.room).emit("goPrev");
+  })
+
+  socket.on("voteFor", id => {
+    rooms[socket.room].clients[id].points ++;
+  })
 
 });
 
@@ -179,6 +223,7 @@ function Client(nickname, roomId, avatar) {
   this.nickname = nickname;
   this.disconnected = false;
   this.isHost = (numberOfClientsInRoom(roomId) === 0);
+  this.points = 0;
   this.avatar = (info.avatar === null) ?
     {
       bodyNum: -1,
@@ -198,5 +243,5 @@ function Round(originalDrawing, originalArtist, describer) {
   this.originalDrawing = originalDrawing;
   this.originalArtist = originalArtist; //id
   this.describer = describer; //id
-  this.copies = {};
+  this.copies = [];
 }

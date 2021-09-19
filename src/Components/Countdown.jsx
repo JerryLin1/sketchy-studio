@@ -1,5 +1,4 @@
 import React from "react";
-import game from "./Game.module.css";
 
 export default class Countdown extends React.Component {
   constructor(props) {
@@ -28,7 +27,7 @@ export default class Countdown extends React.Component {
     const { before, after } = this.props;
 
     return (
-      <div className={`${game.Countdown}`}>
+      <div className="countdown">
         {before} {this.secondsLeft} seconds {after}
       </div>
     );

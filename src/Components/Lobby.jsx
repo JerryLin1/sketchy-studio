@@ -25,8 +25,6 @@ export default class Lobby extends React.Component {
       this.name = clients[this.client.socket.id].name;
       this.room = clients;
 
-      console.log(clients);
-
       this.setState({
         lobbyList: Object.values(clients).map((client, key) => {
           return (

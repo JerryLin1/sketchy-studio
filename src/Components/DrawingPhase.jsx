@@ -1,6 +1,7 @@
 import React from "react";
 import Client from "../client";
 import Canvas from "../Components/Canvas"
+import Countdown from "./Countdown";
 
 import Paint from "./Paint";
 
@@ -10,9 +11,11 @@ export default class DrawingPhase extends React.Component {
     this.client = props.client;
     this.socket = this.client.socket;
 
-    this.state = { gameState: "DRAWING" }
+    this.state = { gameState: "DRAWING", countdown: <Countdown time={120} after="left to finish drawing!" /> }
     this.socket.on("newState", (newState) => {
       this.setState({ gameState: newState });
+      this.setState({ countdown: undefined });
+      this.setState({ countdown: <Countdown time={120} after="left to finish drawing!" /> })
     })
 
   }
@@ -36,18 +39,19 @@ export default class DrawingPhase extends React.Component {
         {this.state.gameState === "DESCRIBE" && (
           <div style={{
             color: "white",
-          textShadow: "black 0 0 3px",
-          fontWeight: "1000",
-          textAlign: "center",
-          marginBottom: "3em"
+            textShadow: "black 0 0 3px",
+            fontWeight: "1000",
+            textAlign: "center",
+            marginBottom: "3em"
 
           }}>
             Listen carefully to how the speaker describes the drawing. Try your best to follow their instructions!
           </div>
         )}
+        {this.state.countdown}
+
         <Canvas
           props={{
-            isDescriber: true,
             client: this.client,
           }}
         />

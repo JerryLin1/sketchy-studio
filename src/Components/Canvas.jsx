@@ -6,7 +6,6 @@ import "./Canvas.css";
 function Canvas(props) {
     const [enabled, setEnabled] = useState(true);
     const client = props.props.client;
-    const isDescriber = props.props.isDescriber;
 
     client.socket.on("resetCanvas", () => {
         setEnabled(true)

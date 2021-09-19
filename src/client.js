@@ -33,7 +33,7 @@ export default class Client extends React.Component {
       this.redirectURL(this.roomId +"/game_results");
 
     })
-    this.socket.on("draw", (src)=> {
+    this.socket.on("draw", (src) => {
       let t = $.parseHTML(`<img src=${src}>`)[0]
       // document.body.appendChild(t)
 
