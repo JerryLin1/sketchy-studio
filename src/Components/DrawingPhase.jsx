@@ -33,7 +33,6 @@ export default class DrawingPhase extends React.Component {
             textShadow: "black 0 0 3px",
             fontWeight: "1000",
             textAlign: "center",
-
             fontSize: "3em",
           }}
         >
