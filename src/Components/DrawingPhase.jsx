@@ -1,6 +1,5 @@
 import React from "react";
 import Client from "../client";
-import Canvas from "../Components/Canvas"
 import Countdown from "./Countdown";
 import Canvas from "../Components/Canvas";
 import AvatarDisplay from "./Avatar/AvatarDisplay";
