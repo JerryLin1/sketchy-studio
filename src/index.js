@@ -37,16 +37,6 @@ class App extends React.Component {
     return (
       <div>
         <Switch>
-          {/* <Route>
-            Hello World
-            <Paint
-              props={{
-                id: this.client.socket.id,
-                client: this.client,
-                forDisplay: false,
-              }}
-            />
-          </Route> */}
           <Route path="/:roomId?" exact render={(props) => (<Home client={this.client} match={props.match} />)} />
           <Route path="/:roomId/lobby" exact render={(props) => (<Lobby client={this.client} match={props.match} />)} />
           <Route path="/:roomId/drawing" exact render={(props) => (<DrawingPhase client={this.client} match={props.match} />)} />

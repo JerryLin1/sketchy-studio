@@ -2,7 +2,6 @@ import React from "react";
 import Client from "../client";
 import Countdown from "./Countdown";
 import Canvas from "../Components/Canvas";
-import AvatarDisplay from "./Avatar/AvatarDisplay";
 
 import Paint from "./Paint";
 
@@ -35,7 +34,6 @@ export default class DrawingPhase extends React.Component {
 
             fontWeight: "1000",
             textAlign: "center",
-
             fontSize: "3em",
           }}
           className="noselect dropshadow"
