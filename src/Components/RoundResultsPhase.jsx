@@ -25,27 +25,16 @@ export default class RoundResultsPhase extends React.Component {
       ],
       currentDrawing: 0,
       voted: false,
-<<<<<<< HEAD
-      isHost: false,
-    };
-=======
       isDescriber: false
     }
->>>>>>> 894738b2f2bdd8931b1c90477bec8648bee8c41b
 
     this.socket.on("receiveDrawings", (drawings) => {
       this.setState({ drawings: drawings });
     });
 
-<<<<<<< HEAD
-    this.socket.on("receiveIsHost", (isHost) => {
-      this.setState({ isHost: isHost });
-    });
-=======
     this.socket.on("receiveIsDescriber", isDescriber => {
       this.setState({ isDescriber: isDescriber });
     })
->>>>>>> 894738b2f2bdd8931b1c90477bec8648bee8c41b
 
     this.socket.on("goNext", () => {
       this.setState({ currentDrawing: this.state.currentDrawing + 1 });
