@@ -30,9 +30,11 @@
 }
 
 h1 {
+  /* -webkit-text-stroke: 1px black; */
   color: white;
-  -webkit-text-stroke: 2.25px black;
-  paint-order: stroke fill;
+  text-shadow: -2px -2px 0 #000, 0 -2px 0 #000, 2px -2px 0 #000, 2px 0 0 #000,
+    2px 2px 0 #000, 0 2px 0 #000, -2px 2px 0 #000, -2px 0 0 #000, 5px 0px 0 #000;
+    
 }
 
 #player-list-avatar-display {
@@ -51,10 +53,10 @@ h1 {
 }
 
 #url {
-  position: absolute;
-  right: 1.5em;
-  -webkit-text-stroke: 1px black;
-  paint-order: stroke fill;
+  text-align: right;
+  margin-right: 5em;
+  text-shadow: -2px -2px 0 #000, 0 -2px 0 #000, 2px -2px 0 #000, 2px 0 0 #000,
+    2px 2px 0 #000, 0 2px 0 #000, -2px 2px 0 #000, -2px 0 0 #000;
   color: white;
   font-weight: 1000;
   font-size: 1.25em;
