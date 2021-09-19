@@ -27,7 +27,7 @@ export default class Lobby extends React.Component {
 
       this.setState({
         lobbyList: (
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", flexWrap: "wrap" ,justifyContent: "center"}}>
             {Object.values(clients).map((client, key) => {
               return (
                 <div key={key} className="lobby-list-item">
@@ -38,7 +38,7 @@ export default class Lobby extends React.Component {
                     <div style={{ float: "left" }}>{client.nickname}</div>
                     <div style={{ float: "right" }}>
                       {client.isHost && (
-                        <span style={{ color: "#b59700" }}>
+                        <span style={{ color: "rgb(241, 207, 96)" }}>
                           {" "}
                           <strong>HOST</strong>
                         </span>
@@ -92,8 +92,8 @@ export default class Lobby extends React.Component {
         </div>
 
         <div>
-          <div id="player-list">
-            <h1 style={{ fontWeight: 700, marginTop: "1em" }}>Players</h1>
+          <div id="player-list" style={{marginTop: "3em"}}>
+            <h1 style={{ fontWeight: 700, marginTop: "0em",  }}>Players</h1>
             {this.state.lobbyList}
           </div>
         </div>
