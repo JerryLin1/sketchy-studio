@@ -46,11 +46,11 @@ io.on("connection", (socket) => {
     if (socket.room in rooms) {
       rooms[socket.room].clients[socket.id].nickname = rooms[socket.room].clients[socket.id].nickname + " (dc'd)";
       rooms[socket.room].clients[socket.id].disconnected = true;
-      rooms[socket.room].disconnected ++;
-    } 
-    
+      rooms[socket.room].disconnected++;
+    }
 
-    
+
+
   });
 
   socket.on("createRoom", () => {
@@ -187,7 +187,7 @@ io.on("connection", (socket) => {
     }
 
     rooms[socket.room].gameState = gameState.GAME_RESULTS;
-    io.to(socket.room).emit("receiveWinner", {points: max, name: clientName});
+    io.to(socket.room).emit("receiveWinner", { points: max, name: clientName });
     if (rooms[socket.room].disconnected === numberOfClientsInRoom(socket.room)) {
       delete rooms[socket.room];
     }
@@ -196,16 +196,20 @@ io.on("connection", (socket) => {
 
   function assignDescribers() {
     // Assign a random describer to an original drawing by another artist
-    let missingArtists = Object.keys(rooms[socket.room].originalDrawings).concat(Object.keys(rooms[socket.room].clients));
-    missingArtists = missingArtists.filter((item,index)=>{
-      return (missingArtists.indexOf(item) == index)
-   })
+    let missingArtists = [];
+    for (let client of Object.keys(rooms[socket.room].clients)) {
+      if (!Object.keys(rooms[socket.room].originalDrawings).includes(client)) {
+        missingArtists.push(client);
+      }
+    }
 
-   for (let missingArtist of missingArtists) {
-     rooms[socket.room].originalDrawings[missingArtist] = "NoDrawing";
-   }
+    console.log(missingArtists);
 
-   let originalDrawings = Object.entries(rooms[socket.room].originalDrawings);
+    for (let missingArtist of missingArtists) {
+      rooms[socket.room].originalDrawings[missingArtist] = "NoDrawing";
+    }
+
+    let originalDrawings = Object.entries(rooms[socket.room].originalDrawings);
 
     for (const [artist, drawing] of originalDrawings) {
       let clientIds = Object.keys(rooms[socket.room].clients);
@@ -227,7 +231,7 @@ io.on("connection", (socket) => {
   })
 
   socket.on("voteFor", id => {
-    rooms[socket.room].clients[id].points ++;
+    rooms[socket.room].clients[id].points++;
   })
 
 });
