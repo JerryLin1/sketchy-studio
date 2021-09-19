@@ -35,8 +35,8 @@ export default class Lobby extends React.Component {
                     condition={client.nickname === this.nickname}
                     wrapper={(children) => <strong>{children}</strong>}
                   >
-                    <div style={{float:"left"}}>{client.nickname}</div>
-                    <div style={{float:"right"}}>
+                    <div style={{ float: "left" }}>{client.nickname}</div>
+                    <div style={{ float: "right" }}>
                       {client.isHost && (
                         <span style={{ color: "#b59700" }}>
                           {" "}
@@ -45,7 +45,7 @@ export default class Lobby extends React.Component {
                       )}
                     </div>
 
-                    <div style={{clear: "both"}}></div>
+                    <div style={{ clear: "both" }}></div>
                   </ConditionalWrapper>
                   <div id="player-list-avatar-display">
                     <AvatarDisplay
@@ -71,25 +71,29 @@ export default class Lobby extends React.Component {
   render() {
     return (
       <div className="lobby">
-        <img id="logo" src={logo} style={{ transform: "scale(0.75)" }} />
-        <div>
-          <center>
-            <Button
-              variant="outline-light"
-              onClick={() => {
-                this.socket.emit("startGame");
-              }}
-              style={{ transform: "scale(1.75)" }}
-            >
-              Start game
-            </Button>
-          </center>
+        <img id="logo" src={logo} />
+        <Button
+          variant="outline-light"
+          onClick={() => {
+            this.socket.emit("startGame");
+          }}
+          style={{
+            position: "absolute",
+            left: "50%",
+            transform: "scale(1.75) translateX(-50%)",
+            verticalAlign: "text-top",
+          }}
+        >
+          Start game
+        </Button>
+        <div id="url">
+          <strong>Room Code:</strong>
+          {this.roomURL}
         </div>
-        <div id="url">{this.roomURL}</div>
 
         <div>
           <div id="player-list">
-            <h1 style={{ fontWeight: 700 }}>Players</h1>
+            <h1 style={{ fontWeight: 700, marginTop: "1em" }}>Players</h1>
             {this.state.lobbyList}
           </div>
         </div>

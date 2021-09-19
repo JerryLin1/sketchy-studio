@@ -1,8 +1,3 @@
-
-body {
-    overflow: hidden;
-}
-
 canvas {
     padding: 0;
     margin: 0 auto 0 auto;
@@ -16,6 +11,7 @@ canvas {
 }
 
 #colour-header {
+    margin: inherit;
     font-size: 1.5em;
     color:white;
     font-weight: 1000;
@@ -23,6 +19,9 @@ canvas {
 }
 
 #submit-btn {
-    margin-top: 5em;
     font-size: 1.25em;
+}
+
+.row {
+    max-width: 100vw;
 }

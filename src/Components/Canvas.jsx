@@ -86,7 +86,7 @@ function Canvas(props) {
   //   }
   for (let c of colors) {
     colorBtns.push(
-      <div
+      <span
         onClick={() => {
           // setColor(c);
           color.current = c;
@@ -193,21 +193,34 @@ function Canvas(props) {
           />
         </Col>
         <Col id="canvas-settings">
-          <div id="colour-header">Colour Picker:</div>
-          {colorBtnsGrid}
-          <input
-            ref={swSliderRef}
-            type="range"
-            min="2"
-            max="66"
-            step="4"
-            class="slider"
-            defaultValue="6"
-          />
-
-          <Button id="submit-btn" disabled={!enabled} ref={submitRef}>
-            Submit drawing
-          </Button>
+          <Row>
+            <div id="colour-header">Colour Picker:</div>
+            <div style={{ margin: "inherit" }}>{colorBtnsGrid}</div>
+          </Row>
+          <br />
+          <Row style={{ width: "15em" }}>
+            <input
+              ref={swSliderRef}
+              type="range"
+              min="2"
+              max="66"
+              step="4"
+              class="slider"
+              defaultValue="4"
+            />
+          </Row>
+          <br />
+          <br />
+          <Row style={{ width: "15em" }}>
+            <Button
+              id="submit-btn"
+              variant="outline-light"
+              disabled={!enabled}
+              ref={submitRef}
+            >
+              Submit drawing
+            </Button>
+          </Row>
         </Col>
       </Row>
     </div>
