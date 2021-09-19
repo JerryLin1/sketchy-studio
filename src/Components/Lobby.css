@@ -1,35 +1,43 @@
 .lobby-list-item {
-    border-radius: 10px;
-    background-color: #6254D0;
-    margin: 1em 0 1em 0;
-    padding: 0.5em;
-    font-size: 2em;
-    
-    border: solid #2823BC 2px !important;
-    margin-right: 3em;
-    display: inline-block;
-    width: 100%;
-}
+  border-radius: 10px;
+  background-color: #6254d0;
+  margin: 1em 0 1em 0;
+  padding: 0.5em;
+  font-size: 1em;
 
+  border: solid #2823bc 2px !important;
+  margin: 0.5em 0.5em;
+  /* display: inline-block; */
+  /* width: 100%; */
+}
+h1 {
+  color: white;
+  -webkit-text-stroke: 8px black;
+  paint-order: stroke fill;
+    
+}
 #player-list-avatar-display {
-    border-radius: 10px;
-    background-color: #52aeff;
-    width: 200px;
-    margin: 0 0 0 1em;
-    float:right;
+  border-radius: 10px;
+  background-color: tomato;
+  border: solid 4px black;
+  display: block;
+  /* width: 200px; */
+  margin: 0 0 0 0em;
+  float: right;
 }
 
 #logo {
-    position: absolute;
-    width: 450px;
-    height: auto;
+  position: absolute;
+  width: 450px;
+  height: auto;
 }
 
 #url {
-    text-align: right;
-    margin-right: 5em;
-    text-shadow: black 1px 1px 1px;
-    color:white;
-    font-weight: 1000;
-    font-size: 1.25em;
+  text-align: right;
+  margin-right: 5em;
+  -webkit-text-stroke: 4px black;
+  paint-order: stroke fill;
+  color: white;
+  font-weight: 1000;
+  font-size: 1.25em;
 }

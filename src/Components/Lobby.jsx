@@ -28,33 +28,44 @@ export default class Lobby extends React.Component {
       console.log(clients);
 
       this.setState({
-        lobbyList: Object.values(clients).map((client, key) => {
-          return (
-            <div key={key} className="lobby-list-item">
-              <ConditionalWrapper
-                condition={client.nickname === this.nickname}
-                wrapper={(children) => <strong>{children}</strong>}
-              >
-                {client.nickname}
-                {client.isHost && (
-                  <span style={{ color: "#b59700" }}> <strong>HOST</strong></span>
-                )}
-              </ConditionalWrapper>
-              <div id="player-list-avatar-display">
-                <AvatarDisplay
-                  avatar={{
-                    bodyNum: client.avatar.bodyNum,
-                    eyesNum: client.avatar.eyesNum,
-                    hairNum: client.avatar.hairNum,
-                    mouthNum: client.avatar.mouthNum,
-                    shirtNum: client.avatar.shirtNum,
-                  }}
-                  size={1.5}
-                />
-              </div>
-            </div>
-          );
-        }),
+        lobbyList: (
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            {Object.values(clients).map((client, key) => {
+              return (
+                <div key={key} className="lobby-list-item">
+                  <ConditionalWrapper
+                    condition={client.nickname === this.nickname}
+                    wrapper={(children) => <strong>{children}</strong>}
+                  >
+                    <div style={{float:"left"}}>{client.nickname}</div>
+                    <div style={{float:"right"}}>
+                      {client.isHost && (
+                        <span style={{ color: "#b59700" }}>
+                          {" "}
+                          <strong>HOST</strong>
+                        </span>
+                      )}
+                    </div>
+
+                    <div style={{clear: "both"}}></div>
+                  </ConditionalWrapper>
+                  <div id="player-list-avatar-display">
+                    <AvatarDisplay
+                      avatar={{
+                        bodyNum: client.avatar.bodyNum,
+                        eyesNum: client.avatar.eyesNum,
+                        hairNum: client.avatar.hairNum,
+                        mouthNum: client.avatar.mouthNum,
+                        shirtNum: client.avatar.shirtNum,
+                      }}
+                      size={1}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ),
       });
     });
   }
